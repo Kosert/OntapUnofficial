@@ -1,3 +1,32 @@
 <resources>
     <string name="app_name">Ontap Unofficial</string>
+    <string name="preference_key" translatable="false">com.kosert.ontap.ONTAP_PREFS</string>
+
+    <string name="label_favs">Favorites</string>
+    <string name="label_cities">Cities</string>
+
+    <string name="favs_empty">You have no favorite multitaps yet!</string>
+
+    <string name="choose_city">Choose city</string>
+    <string name="city_not_chosen">Choose city first!</string>
+
+    <string name="menu_edit">Edit</string>
+    <string name="menu_save">Save</string>
+
+    <string name="taps">%1$d taps</string>
+    <string name="loading">Loading…</string>
+    <string name="downloading">Downloading multitaps data…</string>
+
+    <string name="menu_star">Add to Favorites</string>
+    <string name="menu_unstar">Remove from Favorites</string>
+    <string name="menu_map">Show on map</string>
+    <string name="menu_www">See website</string>
+    <string name="menu_call" formatted="false">Call %1$s</string>
+
+    <string name="netwok_error">Network Error</string>
+
+    <string name="toast_starred">%1$s added to favorites!</string>
+    <string name="toast_unstarred">%1$s removed from favorites!</string>
+    <string name="toast_not_implemented">Not implemented yet :&lt;</string>
+
 </resources>

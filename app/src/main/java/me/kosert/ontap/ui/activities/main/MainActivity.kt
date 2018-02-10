@@ -18,6 +18,12 @@ class MainActivity : AppCompatActivity()
 
 		setSupportActionBar(main_toolbar)
 
+		val pagerAdapter = MainPagerAdapter(this@MainActivity, supportFragmentManager)
+		main_viewPager.adapter = pagerAdapter
+		main_tabs.setupWithViewPager(main_viewPager)
+
+
+
 
 	}
 }
