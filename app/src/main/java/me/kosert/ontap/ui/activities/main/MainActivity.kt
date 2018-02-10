@@ -10,9 +10,12 @@ import me.kosert.ontap.R
  */
 class MainActivity : AppCompatActivity()
 {
+	private val mainController = MainController()
+
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
 		setTheme(R.style.AppTheme_NoActionBar)
+
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.main_activity)
 
@@ -23,7 +26,6 @@ class MainActivity : AppCompatActivity()
 		main_tabs.setupWithViewPager(main_viewPager)
 
 
-
-
+		mainController.onCreate(this@MainActivity)
 	}
 }

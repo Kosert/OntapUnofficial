@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Ontap Unofficial</string>
+    <string name="app_name_short">Ontap</string>
     <string name="preference_key" translatable="false">com.kosert.ontap.ONTAP_PREFS</string>
 
     <string name="label_favs">Favorites</string>
@@ -21,9 +22,9 @@
     <string name="menu_unstar">Remove from Favorites</string>
     <string name="menu_map">Show on map</string>
     <string name="menu_www">See website</string>
-    <string name="menu_call" formatted="false">Call %1$s</string>
+    <string name="menu_call">Call %1$s</string>
 
-    <string name="netwok_error">Network Error</string>
+    <string name="netwok_error">Network Error. Data may be obsolete.</string>
 
     <string name="toast_starred">%1$s added to favorites!</string>
     <string name="toast_unstarred">%1$s removed from favorites!</string>
