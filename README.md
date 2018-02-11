@@ -20,6 +20,7 @@ Gives you an online peek on what polish multitaps have to offer.
 ## Attributions
 - [Ontap](http://ontap.pl)
 - [OkHttp](http://square.github.io/okhttp)
+- [Picasso](http://square.github.io/picasso/)
 - [Jsoup](https://jsoup.org)
 - [Gson](https://github.com/google/gson)
 
