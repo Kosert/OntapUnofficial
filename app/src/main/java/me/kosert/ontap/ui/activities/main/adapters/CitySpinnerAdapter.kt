@@ -1,4 +1,4 @@
-package me.kosert.ontap.ui.activities.main
+package me.kosert.ontap.ui.activities.main.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ import me.kosert.ontap.model.City
  * Created by Kosert on 2018-02-10.
  */
 
-private val itemViewId = R.layout.spinner_city_item
+private const val itemViewId = R.layout.spinner_city_item
 
 class CitySpinnerAdapter(context: Context, private val list: List<City>) : ArrayAdapter<City>(context, itemViewId, list)
 {
@@ -40,7 +40,9 @@ class CitySpinnerAdapter(context: Context, private val list: List<City>) : Array
 
 		val city = list.get(position)
 		cityHolder.textCity.text = city.name
-		cityHolder.textNumber.text = city.nr.toString()
+		cityHolder.textNumber.text =
+				if(city.nr > 0) city.nr.toString()
+				else ""
 
 		return layout
 	}

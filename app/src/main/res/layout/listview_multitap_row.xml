@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryDark"
+    style="@style/SelectableItemBackground">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+
+        <ImageView
+            android:id="@+id/item_multitap_image"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:paddingEnd="5dp"/>
+
+
+        <LinearLayout
+            android:id="@+id/item_multitap_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/item_multitap_image"
+            android:layout_toStartOf="@+id/item_multitap_layout_taps"
+            android:orientation="vertical"
+            android:paddingStart="5dp">
+
+            <TextView
+                android:id="@+id/item_multitap_text_big"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Multitap"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"/>
+
+            <TextView
+                android:id="@+id/item_multitap_text_small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Adres"
+                android:textSize="12sp"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/item_multitap_layout_taps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true">
+
+            <ProgressBar
+                android:id="@+id/item_multitap_loading_taps"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:indeterminateTint="@android:color/white"/>
+
+            <TextView
+                android:id="@+id/item_multitap_text_taps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@android:color/darker_gray" />
+
+</LinearLayout>

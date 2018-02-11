@@ -9,7 +9,7 @@ import android.view.MotionEvent
  * Created by Kosert on 2018-02-10.
  */
 
-class CustomViewPager : ViewPager
+class MainFragmentViewPager : ViewPager
 {
 	var isSwipingEnabled = true
 

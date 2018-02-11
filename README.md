@@ -6,9 +6,10 @@ Unofficial [ontap.pl](http://ontap.pl) Android app.
 Gives you an online peek on what polish multitaps have to offer. 
 
 ## Features
-- [ ] See all multitaps of your city featured on ontap website
+- [x] See all multitaps of your city featured on ontap website
 - [ ] Browse offer of every multitap
 - [ ] Add multitaps to favorites for quick access
+- [ ] New beer notifications
 - [ ] Show multitaps on map
 - [ ] Check beer statistics and ratings on Ratebeer and Untappd
 - [ ] Available in Polish and English

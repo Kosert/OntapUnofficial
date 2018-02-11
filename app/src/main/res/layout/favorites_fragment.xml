@@ -13,20 +13,13 @@
         android:text="@string/favs_empty"
         android:textColor="@android:color/white"/>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/favs_swipe"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/favs_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/favs_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbarFadeDuration="@android:integer/config_shortAnimTime"
-            android:scrollbarSize="3dp"
-            android:scrollbarThumbVertical="@color/colorAccent"
-            android:scrollbars="vertical"/>
-
-    </android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_height="match_parent"
+        android:scrollbarFadeDuration="@android:integer/config_shortAnimTime"
+        android:scrollbarSize="3dp"
+        android:scrollbarThumbVertical="@color/colorAccent"
+        android:scrollbars="vertical"/>
 
 </RelativeLayout>

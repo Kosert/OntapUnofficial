@@ -6,7 +6,7 @@ import android.util.Log
  * Created by Kosert on 2018-02-10.
  */
 
-class Logger(private val tag : String)
+class Logger(logTag : String)
 {
 	companion object
 	{
@@ -24,6 +24,8 @@ class Logger(private val tag : String)
 			Log.d(universalTag, message)
 		}
 	}
+
+	private val tag : String = "OntapUnofficial." + logTag
 
 	fun list(list: List<Any>)
 	{

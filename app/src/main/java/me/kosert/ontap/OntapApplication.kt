@@ -10,20 +10,11 @@ import me.kosert.ontap.data.StaticProvider
 
 class OntapApplication : Application()
 {
-	/*companion object
-	{
-		private var appContext : Context? = null
-
-		fun getContext(): Context?
-		{
-			return appContext
-		}
-	}*/
-
 	override fun onCreate()
 	{
 		super.onCreate()
 		val prefs = getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE)
 		StaticProvider.initialize(prefs)
+		//StaticProvider.Memory.resetMemory()
 	}
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.main_activity.*
 import me.kosert.ontap.R
+import me.kosert.ontap.ui.activities.main.adapters.MainPagerAdapter
 
 /**
  * Created by Kosert on 2018-02-10.

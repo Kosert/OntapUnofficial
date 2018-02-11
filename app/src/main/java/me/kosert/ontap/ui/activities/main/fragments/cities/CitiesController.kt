@@ -4,9 +4,9 @@ import android.content.Context
 import android.widget.Toast
 import me.kosert.ontap.R
 import me.kosert.ontap.data.DataProvider
-import me.kosert.ontap.data.callbacks.CityListCallback
+import me.kosert.ontap.data.IDataProvider
+import me.kosert.ontap.data.callbacks.NetworkCallback
 import me.kosert.ontap.model.City
-import me.kosert.ontap.ui.activities.main.CitySpinnerAdapter
 import me.kosert.ontap.util.Logger
 
 /**
@@ -15,22 +15,26 @@ import me.kosert.ontap.util.Logger
 class CitiesController
 {
 	private val logger = Logger("CitiesController")
-	private val dataProvider = DataProvider
-	private var context : Context? = null
-	private var spinnerAdapter : CitySpinnerAdapter? = null
+	private val dataProvider = DataProvider as IDataProvider
+	private lateinit var context : Context
+	private lateinit var callbacks: ICitiesCallbacks
 
-	fun onCreate(cntxt: Context, adapter: CitySpinnerAdapter)
+	fun onCreate(cntxt: Context, callback: ICitiesCallbacks)
 	{
 		context = cntxt
-		spinnerAdapter = adapter
+		callbacks = callback
 
-		dataProvider.loadCityList(object : CityListCallback
+		if (dataProvider.cities.isEmpty())
+			dataProvider.cities.add(0, City(context!!.getString(R.string.choose_city), "", 0))
+		callbacks.spinnerNotify()
+
+		dataProvider.loadCityList(object : NetworkCallback
 		{
-			override fun onSuccess(list: List<City>)
+			override fun onSuccess()
 			{
-				spinnerAdapter?.notifyDataSetChanged()
-				logger.i("City list downloaded")
-				logger.list(list)
+				dataProvider.cities.add(0, City(context!!.getString(R.string.choose_city), "", 0))
+				callbacks.spinnerNotify()
+				logger.i("City list loaded")
 			}
 
 			override fun onFailure()
@@ -38,6 +42,48 @@ class CitiesController
 				Toast.makeText(context, R.string.netwok_error, Toast.LENGTH_SHORT).show()
 			}
 		})
+	}
+
+	fun onCitySelected(position: Int)
+	{
+		loadMultitaps(dataProvider.cities[position], false)
+	}
+
+	fun onRefresh()
+	{
+		val position = callbacks.getSpinnerPosition()
+		loadMultitaps(dataProvider.cities[position], true)
+	}
+
+	private fun loadMultitaps(selectedCity: City, refresh : Boolean)
+	{
+		if (!refresh) callbacks.isRefreshing = true
+		callbacks.recyclerClear()
+
+		if (selectedCity.url.isEmpty() || (selectedCity.multitaps.isNotEmpty() && !refresh))
+		{
+			if (!refresh) callbacks.recyclerSetContent(selectedCity.multitaps)
+			callbacks.isRefreshing = false
+		}
+		else
+		{
+			dataProvider.loadMultitapList(selectedCity, object : NetworkCallback
+			{
+				override fun onSuccess()
+				{
+					callbacks.recyclerSetContent(selectedCity.multitaps)
+					logger.i("Multitap list loaded")
+					callbacks.isRefreshing = false
+				}
+
+				override fun onFailure()
+				{
+					Toast.makeText(context, R.string.netwok_error, Toast.LENGTH_SHORT).show()
+					callbacks.isRefreshing = false
+				}
+			}, refresh)
+		}
+
 
 	}
 }

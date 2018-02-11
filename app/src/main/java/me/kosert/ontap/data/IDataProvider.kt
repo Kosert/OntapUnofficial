@@ -1,24 +1,47 @@
 package me.kosert.ontap.data
 
-import me.kosert.ontap.data.callbacks.CityListCallback
+import me.kosert.ontap.data.callbacks.NetworkCallback
+import me.kosert.ontap.model.City
 
 /**
  * Created by Kosert on 2018-02-10.
  */
 interface IDataProvider
 {
-	/**
-	 *  Fetches the city list and passes it to [CityListCallback#onSuccess(list : List<City>)],
-	 *  If list is not loaded -> download from web,
-	 *  If fail -> loads from memory
-	 */
-	fun loadCityList(callback : CityListCallback)
+	var cities : MutableList<City>
 
 	/**
-	 *  Fetches the city list and passes it to [CityListCallback#onSuccess(list : List<City>)],
-	 *  Clears already downloaded data and forces download,
-	 *  If fail -> loads from memory
+	 *  Fetches the city list.
+	 *	Try local list, if fail -> download from web, if fail -> loads from memory
+	 *  Calls [NetworkCallback.onFailure] when network fetch fails
+	 *  Calls [NetworkCallback.onSuccess] when data is loaded from either source
 	 */
-	fun loadCityList(callback : CityListCallback, forceRefresh : Boolean)
+	fun loadCityList(callback : NetworkCallback)
+
+	/**
+	 *  Fetches the city list.
+	 *  Try local list, if fail -> download from web, if fail -> loads from memory
+	 *  If [forceRefresh] is true -> skip checking local list
+	 *  Calls [NetworkCallback.onFailure] when network fetch fails
+	 *  Calls [NetworkCallback.onSuccess] when data is loaded from either source
+	 */
+	fun loadCityList(callback : NetworkCallback, forceRefresh : Boolean)
+
+	/**
+	 *  Fetches multitap list of [city].
+	 *  Try loading from memory, if fail -> download from web
+	 *  Calls [NetworkCallback.onFailure] when network fetch fails
+	 *  Calls [NetworkCallback.onSuccess] when data is loaded from either source
+	 */
+	fun loadMultitapList(city: City, callback : NetworkCallback)
+
+	/**
+	 *  Fetches multitap list of [city].
+	 *  Try loading from memory, if fail -> download from web
+	 *  If [forceRefresh] is true -> download from web, if fail -> load from memory
+	 *  Calls [NetworkCallback.onFailure] when network fetch fails
+	 *  Calls [NetworkCallback.onSuccess] when data is loaded from either source
+	 */
+	fun loadMultitapList(city: City, callback : NetworkCallback, forceRefresh: Boolean)
 
 }

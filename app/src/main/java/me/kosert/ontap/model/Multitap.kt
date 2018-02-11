@@ -1,13 +1,29 @@
 package me.kosert.ontap.model
 
+import com.google.gson.annotations.Expose
+
 /**
  * Created by Kosert on 2018-02-10.
  */
-data class Multitap(val name: String, val url: String, val image: String)
+open class Multitap(
+		@Expose
+		val name: String,
+		@Expose
+		val url: String,
+		@Expose
+		val image: String
+)
 {
-	var address: String = ""
-	var website: String = ""
-	val coords = mutableListOf<String>()
-	var phone: String = ""
-	var beers = -1
+	// empty constructor required by Gson
+	private constructor() : this("", "", "")
+
+	fun toFull(address: String, website: String, phone: String, beerCount: Int, coords: MutableList<String>): MultitapFull
+	{
+		return MultitapFull(name, url, image, address, website, phone, beerCount, coords)
+	}
+
+	override fun toString(): String
+	{
+		return "Multitap(name='$name', url='$url', image='$image')"
+	}
 }
