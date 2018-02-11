@@ -26,7 +26,7 @@ Gives you an online peek on what polish multitaps have to offer.
 
 ## Additional Information
 Requires Android API 21 or higher (Android 5.0+).  
-Created with Kotlin and Android Studio 3.0.1  
+Created with Kotlin 1.2.21 and Android Studio 3.0.1  
 Author: [Robert Kosakowski](https://github.com/Kosert)  
 **Note:** I am not affiliated with ontap.pl by any means.  
 They also have an official Android app which you can download [here](https://play.google.com/store/apps/details?id=michaldrabik.ontap).
