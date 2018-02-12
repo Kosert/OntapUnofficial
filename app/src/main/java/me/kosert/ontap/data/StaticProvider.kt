@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import com.google.gson.GsonBuilder
 import me.kosert.ontap.model.City
 import me.kosert.ontap.model.Multitap
+import me.kosert.ontap.model.MultitapDetails
 import me.kosert.ontap.util.Logger
 
 /**
@@ -12,19 +13,26 @@ import me.kosert.ontap.util.Logger
 
 object StaticProvider
 {
-	private lateinit var prefs : SharedPreferences
+	private lateinit var prefs: SharedPreferences
+	private lateinit var memory: SharedPreferences
 
 	private val logger = Logger("StaticProvider")
 	private val gson = GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
 
-	fun initialize(sharedPreferences: SharedPreferences)
+	fun initialize(mem: SharedPreferences, preferences: SharedPreferences)
 	{
-		prefs = sharedPreferences
+		memory = mem
+		prefs = preferences
 	}
 
-	fun isNotInitialized() : Boolean
+	fun isPrefsNotInitialized() : Boolean
 	{
 		return !this::prefs.isInitialized
+	}
+
+	fun isMemoryNotInitialized() : Boolean
+	{
+		return !this::memory.isInitialized
 	}
 
 	object Prefs
@@ -32,6 +40,9 @@ object StaticProvider
 		//TODO save favorites, notification preferences etc
 	}
 
+	/**
+	 * Contains saved objects
+	 */
 	object Memory
 	{
 		private const val cities_key = "CITIES"
@@ -40,16 +51,15 @@ object StaticProvider
 
 		fun resetMemory()
 		{
-			if (isNotInitialized()) return
-
-			prefs.edit().clear().apply()
+			if (isMemoryNotInitialized()) return
+			memory.edit().clear().apply()
 		}
 
 		fun getCityList() : List<City>?
 		{
-			if (isNotInitialized()) return null
+			if (isMemoryNotInitialized()) return null
 
-			prefs.getString(cities_key, null)?.let {
+			memory.getString(cities_key, null)?.let {
 				logger.i("getCityList: " + it)
 				val array = gson.fromJson(it, arrayOf<City>()::class.java)
 				return array.toList()
@@ -59,19 +69,19 @@ object StaticProvider
 
 		fun saveCityList(list : List<City>)
 		{
-			if (isNotInitialized()) return
+			if (isMemoryNotInitialized()) return
 
 			val json = gson.toJson(list)
 			logger.i("saveCityList: " + json)
-			val editor = prefs.edit().putString(cities_key, json)
+			val editor = memory.edit().putString(cities_key, json)
 			editor.apply()
 		}
 
 		fun getMultitapList(city: City) : List<Multitap>?
 		{
-			if (isNotInitialized()) return null
+			if (isMemoryNotInitialized()) return null
 
-			prefs.getString(multitap_list_prefix + city.url, null)?.let {
+			memory.getString(multitap_list_prefix + city.url, null)?.let {
 
 				val array = gson.fromJson(it, arrayOf<Multitap>()::class.java)
 				return array.toList()
@@ -81,10 +91,29 @@ object StaticProvider
 
 		fun saveMultitapList(city: City)
 		{
-			if (isNotInitialized()) return
+			if (isMemoryNotInitialized()) return
 
 			val json = gson.toJson(city.multitaps)
-			val editor = prefs.edit().putString(multitap_list_prefix + city.url, json)
+			val editor = memory.edit().putString(multitap_list_prefix + city.url, json)
+			editor.apply()
+		}
+
+		fun getMultitapDetails(multitap: Multitap) : MultitapDetails?
+		{
+			if (isMemoryNotInitialized()) return null
+
+			memory.getString(multitap_prefix + multitap.url, null)?.let {
+				return gson.fromJson(it, MultitapDetails::class.java)
+			}
+			return null
+		}
+
+		fun saveMultitapDetails(multitap: Multitap)
+		{
+			if (isMemoryNotInitialized()) return
+
+			val json = gson.toJson(multitap.details)
+			val editor = memory.edit().putString(multitap_prefix + multitap.url, json)
 			editor.apply()
 		}
 

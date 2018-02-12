@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Ontap Unofficial</string>
     <string name="app_name_short">Ontap</string>
+    <string name="memory_key" translatable="false">com.kosert.ontap.ONTAP_MEMORY</string>
     <string name="preference_key" translatable="false">com.kosert.ontap.ONTAP_PREFS</string>
 
     <string name="label_favs">Favorites</string>

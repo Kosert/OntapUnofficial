@@ -13,8 +13,9 @@ class OntapApplication : Application()
 	override fun onCreate()
 	{
 		super.onCreate()
+		val memory = getSharedPreferences(getString(R.string.memory_key), Context.MODE_PRIVATE)
 		val prefs = getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE)
-		StaticProvider.initialize(prefs)
+		StaticProvider.initialize(memory, prefs)
 		//StaticProvider.Memory.resetMemory()
 	}
 }

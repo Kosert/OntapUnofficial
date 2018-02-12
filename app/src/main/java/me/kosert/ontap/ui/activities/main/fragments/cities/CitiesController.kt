@@ -3,43 +3,50 @@ package me.kosert.ontap.ui.activities.main.fragments.cities
 import android.content.Context
 import android.widget.Toast
 import me.kosert.ontap.R
-import me.kosert.ontap.data.DataProvider
-import me.kosert.ontap.data.IDataProvider
 import me.kosert.ontap.data.callbacks.NetworkCallback
 import me.kosert.ontap.model.City
+import me.kosert.ontap.model.Multitap
+import me.kosert.ontap.ui.activities.main.fragments.AbstractMainController
+import me.kosert.ontap.ui.activities.main.fragments.ICallbacks
 import me.kosert.ontap.util.Logger
+import kotlin.properties.Delegates
 
 /**
  * Created by Kosert on 2018-02-10.
  */
-class CitiesController
+class CitiesController : AbstractMainController()
 {
-	private val logger = Logger("CitiesController")
-	private val dataProvider = DataProvider as IDataProvider
-	private lateinit var context : Context
-	private lateinit var callbacks: ICitiesCallbacks
+	override val logger = Logger("CitiesController")
 
-	fun onCreate(cntxt: Context, callback: ICitiesCallbacks)
+	override var callbacks by Delegates.notNull<ICitiesCallbacks>()
+
+	override fun getDisplayedList(): List<Multitap>
 	{
-		context = cntxt
-		callbacks = callback
+		val position = callbacks.getSpinnerPosition()
+		return dataProvider.cities[position].multitaps
+	}
+
+	override fun onCreate(context: Context, callbacks: ICallbacks)
+	{
+		super.onCreate(context, callbacks)
+		this.callbacks = callbacks as ICitiesCallbacks
 
 		if (dataProvider.cities.isEmpty())
-			dataProvider.cities.add(0, City(context!!.getString(R.string.choose_city), "", 0))
-		callbacks.spinnerNotify()
+			dataProvider.cities.add(0, City(this.context.getString(R.string.choose_city), "", 0))
+		this.callbacks.spinnerNotify()
 
 		dataProvider.loadCityList(object : NetworkCallback
 		{
 			override fun onSuccess()
 			{
-				dataProvider.cities.add(0, City(context!!.getString(R.string.choose_city), "", 0))
-				callbacks.spinnerNotify()
+				dataProvider.cities.add(0, City(this@CitiesController.context.getString(R.string.choose_city), "", 0))
+				this@CitiesController.callbacks.spinnerNotify()
 				logger.i("City list loaded")
 			}
 
 			override fun onFailure()
 			{
-				Toast.makeText(context, R.string.netwok_error, Toast.LENGTH_SHORT).show()
+				Toast.makeText(this@CitiesController.context, R.string.netwok_error, Toast.LENGTH_SHORT).show()
 			}
 		})
 	}
@@ -62,7 +69,7 @@ class CitiesController
 
 		if (selectedCity.url.isEmpty() || (selectedCity.multitaps.isNotEmpty() && !refresh))
 		{
-			if (!refresh) callbacks.recyclerSetContent(selectedCity.multitaps)
+			if (!refresh) callbacks.recyclerSetContent(selectedCity.multitaps, false)
 			callbacks.isRefreshing = false
 		}
 		else
@@ -71,7 +78,7 @@ class CitiesController
 			{
 				override fun onSuccess()
 				{
-					callbacks.recyclerSetContent(selectedCity.multitaps)
+					callbacks.recyclerSetContent(selectedCity.multitaps, refresh)
 					logger.i("Multitap list loaded")
 					callbacks.isRefreshing = false
 				}

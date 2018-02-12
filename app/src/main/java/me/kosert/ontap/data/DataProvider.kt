@@ -2,6 +2,7 @@ package me.kosert.ontap.data
 
 import me.kosert.ontap.data.callbacks.NetworkCallback
 import me.kosert.ontap.model.City
+import me.kosert.ontap.model.Multitap
 import me.kosert.ontap.util.Logger
 
 /**
@@ -79,11 +80,67 @@ object DataProvider : IDataProvider
 		})
 	}
 
+	override fun loadMultitapDetails(multitap: Multitap, callback: NetworkCallback)
+	{
+		loadMultitapDetails(multitap, callback, false)
+	}
+
+	override fun loadMultitapDetails(multitap: Multitap, callback: NetworkCallback, forceRefresh: Boolean)
+	{
+		multitap.detailsLoading = true
+
+		val refresh = (multitap.details?.invalidated ?: false) || forceRefresh
+
+		if (!refresh)
+		{
+			if (loadMultitapDetailsFromMemory(multitap))
+			{
+				callback.onSuccess()
+				multitap.detailsLoading = false
+				return
+			}
+		}
+
+		WebRetriever.downloadMultitapDetails(multitap, object : NetworkCallback
+		{
+			override fun onSuccess()
+			{
+				StaticProvider.Memory.saveMultitapDetails(multitap)
+				multitap.detailsLoading = false
+				callback.onSuccess()
+			}
+
+			override fun onFailure()
+			{
+				if (refresh)
+				{
+					if (loadMultitapDetailsFromMemory(multitap))
+					{
+						multitap.detailsLoading = false
+						callback.onSuccess()
+					}
+				}
+				multitap.detailsLoading = false
+				callback.onFailure()
+			}
+		})
+
+	}
+
 	private fun loadMultitapListFromMemory(city: City) : Boolean
 	{
 		StaticProvider.Memory.getMultitapList(city)?.let {
 			city.multitaps.clear()
 			city.multitaps.addAll(it)
+			return true
+		}
+		return false
+	}
+
+	private fun loadMultitapDetailsFromMemory(multitap: Multitap) : Boolean
+	{
+		StaticProvider.Memory.getMultitapDetails(multitap)?.let {
+			multitap.details = it
 			return true
 		}
 		return false

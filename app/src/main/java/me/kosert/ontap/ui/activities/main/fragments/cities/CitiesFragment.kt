@@ -1,15 +1,15 @@
 package me.kosert.ontap.ui.activities.main.fragments.cities
 
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import kotlinx.android.synthetic.main.cities_fragment.*
 import me.kosert.ontap.R
-import me.kosert.ontap.data.DataProvider
-import me.kosert.ontap.data.IDataProvider
 import me.kosert.ontap.model.Multitap
 import me.kosert.ontap.ui.activities.main.adapters.CitySpinnerAdapter
 import me.kosert.ontap.ui.activities.main.adapters.RecyclerMultitapAdapter
@@ -21,8 +21,10 @@ import me.kosert.ontap.ui.activities.main.fragments.MainAbstractFragment
 
 class CitiesFragment : MainAbstractFragment()
 {
-	private val dataProvider : IDataProvider = DataProvider
-	private val citiesController = CitiesController()
+	override val recyclerView: RecyclerView
+		get() = cities_recycler
+
+	override val controller: CitiesController = CitiesController()
 
 	companion object
 	{
@@ -43,6 +45,8 @@ class CitiesFragment : MainAbstractFragment()
 
 	override fun onViewCreated(view: View?, savedInstanceState: Bundle?)
 	{
+		super.onViewCreated(view, savedInstanceState)
+
 		val spinnerAdapter = CitySpinnerAdapter(context, dataProvider.cities)
 		cities_spinner.adapter = spinnerAdapter
 
@@ -56,16 +60,26 @@ class CitiesFragment : MainAbstractFragment()
 
 			override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
 			{
-				citiesController.onCitySelected(position)
+				controller.onCitySelected(position)
 			}
 		}
 
 		cities_swipe.setOnRefreshListener {
-			citiesController.onRefresh()
+			controller.onRefresh()
 		}
 
 		val callbacks = object : ICitiesCallbacks
 		{
+			override fun recyclerNotifyPosition(position: Int)
+			{
+				Handler().post {
+					recyclerAdapter.notifyItemChanged(position)
+				}
+			}
+
+			override fun getLastToLoadPosition(): Int =
+					this@CitiesFragment.getLastToLoadPosition()
+
 			override fun getSpinnerPosition(): Int
 			{
 				return cities_spinner.selectedItemPosition
@@ -89,14 +103,17 @@ class CitiesFragment : MainAbstractFragment()
 				recyclerAdapter.notifyDataSetChanged()
 			}
 
-			override fun recyclerSetContent(list: List<Multitap>)
+			override fun recyclerSetContent(list: List<Multitap>, forceRefresh: Boolean)
 			{
 				recyclerAdapter.list.clear()
 				recyclerAdapter.list.addAll(list)
 				recyclerAdapter.notifyDataSetChanged()
+				controller.updateDetailsVisible()
+				if (forceRefresh)
+					controller.requestDetailsRefresh()
 			}
 		}
 
-		citiesController.onCreate(context, callbacks)
+		controller.onCreate(context, callbacks)
 	}
 }

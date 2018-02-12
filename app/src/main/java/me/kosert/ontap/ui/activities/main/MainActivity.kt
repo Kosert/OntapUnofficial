@@ -1,5 +1,6 @@
 package me.kosert.ontap.ui.activities.main
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.main_activity.*
@@ -11,10 +12,9 @@ import me.kosert.ontap.ui.activities.main.adapters.MainPagerAdapter
  */
 class MainActivity : AppCompatActivity()
 {
-	private val mainController = MainController()
-
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
+		requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
 		setTheme(R.style.AppTheme_NoActionBar)
 
 		super.onCreate(savedInstanceState)
@@ -25,8 +25,5 @@ class MainActivity : AppCompatActivity()
 		val pagerAdapter = MainPagerAdapter(this@MainActivity, supportFragmentManager)
 		main_viewPager.adapter = pagerAdapter
 		main_tabs.setupWithViewPager(main_viewPager)
-
-
-		mainController.onCreate(this@MainActivity)
 	}
 }

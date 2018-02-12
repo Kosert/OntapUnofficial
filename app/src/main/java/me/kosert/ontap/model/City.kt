@@ -6,12 +6,9 @@ import com.google.gson.annotations.Expose
  * Created by Kosert on 2018-02-10.
  */
 
-class City(@Expose
-		   val name: String,
-		   @Expose
-		   val url : String,
-		   @Expose
-		   val nr : Int)
+class City(@Expose val name: String,
+		   @Expose val url : String,
+		   @Expose val nr : Int)
 {
 
 	// empty constructor required by Gson

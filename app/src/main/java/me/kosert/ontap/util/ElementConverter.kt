@@ -1,5 +1,6 @@
 package me.kosert.ontap.util
 
+import me.kosert.ontap.model.Beer
 import me.kosert.ontap.model.City
 import me.kosert.ontap.model.Multitap
 import org.jsoup.nodes.Element
@@ -23,4 +24,14 @@ fun Element.toMultitap() : Multitap
 	val url = a[0].attr("href")
 	val image = a[0].children().first().attr("src")
 	return Multitap(name, url, image)
+}
+
+fun Element.toBeer() : Beer
+{
+	TODO()
+}
+
+fun List<String>.toPair() : Pair<String, String>
+{
+	return Pair(this[0], this[1])
 }

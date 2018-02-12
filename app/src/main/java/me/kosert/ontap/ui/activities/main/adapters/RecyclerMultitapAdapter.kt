@@ -11,7 +11,6 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import me.kosert.ontap.R
 import me.kosert.ontap.model.Multitap
-import me.kosert.ontap.model.MultitapFull
 
 /**
  * Created by Kosert on 2018-02-11.
@@ -49,22 +48,15 @@ class RecyclerMultitapAdapter(val context: Context, val list: MutableList<Multit
 
 			Picasso.with(context).load(multitap.image).into(icon)
 			name.text = multitap.name
-			address.text = ""
 
-			if (multitap is MultitapFull)
-			{
-				val multitapFull = multitap as MultitapFull
-				address.text = multitapFull.address
-				if (multitapFull.beerCount > 0)
-				{
-					progress.visibility = View.GONE
-					taps.text = context.getString(R.string.taps, multitapFull.beerCount)
-				}
-				else
-				{
-					progress.visibility = View.VISIBLE
-					taps.text = ""//context.getString(R.string.loading)
-				}
+			multitap.details?.let {
+				address.text = it.address
+				taps.text = context.getString(R.string.taps, it.beerCount)
+				progress.visibility = View.GONE
+			} ?: run {
+				address.text = ""
+				progress.visibility = View.VISIBLE
+				taps.text = ""
 			}
 		}
 	}

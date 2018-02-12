@@ -2,9 +2,11 @@ package me.kosert.ontap.data
 
 import me.kosert.ontap.data.callbacks.NetworkCallback
 import me.kosert.ontap.model.City
+import me.kosert.ontap.model.Multitap
 
 /**
  * Created by Kosert on 2018-02-10.
+ * Main source of all data
  */
 interface IDataProvider
 {
@@ -44,4 +46,20 @@ interface IDataProvider
 	 */
 	fun loadMultitapList(city: City, callback : NetworkCallback, forceRefresh: Boolean)
 
+	/**
+	 * Fetches detailed information about [multitap]
+	 * Try loading from memory, if fail -> download from web
+	 *  Calls [NetworkCallback.onFailure] when network fetch fails
+	 *  Calls [NetworkCallback.onSuccess] when data is loaded from either source
+	 */
+	fun loadMultitapDetails(multitap: Multitap, callback : NetworkCallback)
+
+	/**
+	 * Fetches detailed information about [multitap]
+	 * Try loading from memory, if fail -> download from web
+	 * If [forceRefresh] is true -> download from web, if fail -> load from memory
+	 *  Calls [NetworkCallback.onFailure] when network fetch fails
+	 *  Calls [NetworkCallback.onSuccess] when data is loaded from either source
+	 */
+	fun loadMultitapDetails(multitap: Multitap, callback : NetworkCallback, forceRefresh: Boolean)
 }
