@@ -17,8 +17,8 @@ class Logger(logTag : String)
 		{
 			if (!StaticProvider.DEBUG) return
 
-			list.forEach {
-				Log.d(universalTag, it.toString())
+			list.forEachIndexed { index, any ->
+				Log.d(universalTag, index.toString() + ": " + any.toString())
 			}
 		}
 
@@ -36,8 +36,8 @@ class Logger(logTag : String)
 	{
 		if (!StaticProvider.DEBUG) return
 
-		list.forEach {
-			Log.d(tag, it.toString())
+		list.forEachIndexed { index, any ->
+			Log.d(tag, index.toString() + ": " + any.toString())
 		}
 	}
 
