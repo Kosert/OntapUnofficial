@@ -18,7 +18,7 @@ abstract class MainAbstractFragment : Fragment()
 
 	protected abstract val recyclerView : RecyclerView
 
-	protected abstract val controller : AbstractMainController
+	protected abstract val controller : MainAbstractController
 
 	@CallSuper
 	override fun onViewCreated(view: View?, savedInstanceState: Bundle?)

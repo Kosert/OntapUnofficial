@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.favorites_fragment.*
 import me.kosert.ontap.R
-import me.kosert.ontap.ui.activities.main.fragments.AbstractMainController
+import me.kosert.ontap.ui.activities.main.fragments.MainAbstractController
 import me.kosert.ontap.ui.activities.main.fragments.MainAbstractFragment
 
 /**
@@ -18,7 +18,7 @@ class FavoritesFragment : MainAbstractFragment()
 {
 	override val recyclerView: RecyclerView
 		get() = favs_recycler
-	override val controller: AbstractMainController
+	override val controller: MainAbstractController
 		get() = TODO("not implemented")
 
 	companion object

@@ -6,15 +6,15 @@ import me.kosert.ontap.R
 import me.kosert.ontap.data.callbacks.NetworkCallback
 import me.kosert.ontap.model.City
 import me.kosert.ontap.model.Multitap
-import me.kosert.ontap.ui.activities.main.fragments.AbstractMainController
 import me.kosert.ontap.ui.activities.main.fragments.ICallbacks
+import me.kosert.ontap.ui.activities.main.fragments.MainAbstractController
 import me.kosert.ontap.util.Logger
 import kotlin.properties.Delegates
 
 /**
  * Created by Kosert on 2018-02-10.
  */
-class CitiesController : AbstractMainController()
+class CitiesController : MainAbstractController()
 {
 	override val logger = Logger("CitiesController")
 

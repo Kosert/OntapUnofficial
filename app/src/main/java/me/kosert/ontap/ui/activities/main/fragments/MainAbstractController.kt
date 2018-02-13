@@ -11,7 +11,7 @@ import me.kosert.ontap.util.Logger
 /**
  * Created by Kosert on 2018-02-10.
  */
-abstract class AbstractMainController
+abstract class MainAbstractController
 {
 	protected val dataProvider = DataProvider as IDataProvider
 	protected lateinit var context : Context
@@ -41,9 +41,6 @@ abstract class AbstractMainController
 		}
 	}
 
-	/**
-	 *
-	 */
 	fun updateDetailsVisible()
 	{
 		val list = getDisplayedList()
@@ -58,7 +55,10 @@ abstract class AbstractMainController
 						callbacks.recyclerNotifyPosition(index)
 					}
 
-					override fun onFailure() {}
+					override fun onFailure()
+					{
+						logger.e("Error loading details")
+					}
 				})
 			}
 		}
