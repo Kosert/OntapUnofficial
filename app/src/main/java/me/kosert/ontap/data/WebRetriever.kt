@@ -5,10 +5,7 @@ import me.kosert.ontap.data.callbacks.NetworkCallback
 import me.kosert.ontap.model.City
 import me.kosert.ontap.model.Multitap
 import me.kosert.ontap.model.MultitapDetails
-import me.kosert.ontap.util.Logger
-import me.kosert.ontap.util.toCity
-import me.kosert.ontap.util.toMultitap
-import me.kosert.ontap.util.toPair
+import me.kosert.ontap.util.*
 import okhttp3.*
 import org.jsoup.Jsoup
 import java.io.IOException
@@ -19,9 +16,10 @@ import java.io.IOException
  */
 object WebRetriever
 {
-	private val mainPageUrl = "http://ontap.pl/"
 	private val logger = Logger("WebRetriever")
 	private val mainHandler = Handler()
+
+	const val mainPageUrl = "http://ontap.pl/"
 
 	fun downloadCityList(callback: NetworkCallback)
 	{
@@ -115,7 +113,7 @@ object WebRetriever
 		})
 	}
 
-	fun downloadMultitapDetails(multitap: Multitap, callback: NetworkCallback)
+	fun downloadMultitapDetails(multitap: Multitap, callback: NetworkCallback, parseBeerList: Boolean)
 	{
 		val http = OkHttpClient()
 
@@ -136,29 +134,8 @@ object WebRetriever
 			override fun onResponse(call: Call?, response: Response)
 			{
 				val body = response.body()!!.string()
-				val doc = Jsoup.parse(body)
 
-				val addressBlock = doc.getElementsByTag("address").first()
-				val adr = addressBlock.children()[0].nextSibling().outerHtml().split(",").dropLast(1).joinToString(",").trim()
-
-				val a = addressBlock.getElementsByTag("a")
-				val coords =
-						if (a.size > 0)
-							a.first().attr("href").substringAfter("=").split(",").toPair()
-						else Pair("","")
-
-				val website =
-						if(a.size > 1)
-							addressBlock.select("a")[1].attr("href")
-						else ""
-
-				val phone =
-						if(a.size > 2)
-							addressBlock.select("a")[2].attr("href")
-						else ""
-
-				val beerCount = doc.getElementsByClass("row")[1].children().size
-				multitap.details = MultitapDetails(adr, website, phone, beerCount, coords)
+				parseMultitapPage(multitap, body, parseBeerList)
 
 				mainHandler.post{
 					callback.onSuccess()
@@ -166,4 +143,45 @@ object WebRetriever
 			}
 		})
 	}
+
+	private fun parseMultitapPage(multitap: Multitap, body : String, doBeerList: Boolean)
+	{
+		val doc = Jsoup.parse(body)
+
+		val addressBlock = doc.getElementsByTag("address").first()
+		val adr = addressBlock.children()[0].nextSibling().outerHtml().split(",").dropLast(1).joinToString(",").trim()
+
+		val a = addressBlock.getElementsByTag("a")
+		val coords =
+				if (a.size > 0)
+					a.first().attr("href").substringAfter("=").split(",").toPair()
+				else Pair("","")
+
+		val website =
+				if(a.size > 1)
+					addressBlock.select("a")[1].attr("href")
+				else ""
+
+		val phone =
+				if(a.size > 2)
+					addressBlock.select("a")[2].attr("href")
+				else ""
+
+		val beerElemets = doc.getElementsByClass("row")[1].children().dropLast(1)
+		val beerCount = beerElemets.size
+
+		multitap.details = MultitapDetails(adr, website, phone, beerCount, coords)
+
+		if (doBeerList)
+		{
+			val beerList = beerElemets.map {
+				val beer = it.toBeer()
+				logger.i(beer.toString())
+				return@map beer
+			}
+			multitap.beers.clear()
+			multitap.beers.addAll(beerList)
+		}
+	}
+
 }

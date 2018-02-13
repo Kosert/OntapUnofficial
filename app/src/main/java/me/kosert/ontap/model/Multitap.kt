@@ -16,7 +16,7 @@ class Multitap(
 
 	var detailsLoading : Boolean = false
 
-	val beers = mutableListOf<Beer>()
+	val beers = mutableListOf<BeerItem>()
 
 	// empty constructor required by Gson
 	private constructor() : this("", "", "")
