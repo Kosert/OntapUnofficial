@@ -15,7 +15,7 @@ class Logger(logTag : String)
 
 		fun list(list: List<Any>)
 		{
-			if (StaticProvider.DEBUG) return
+			if (!StaticProvider.DEBUG) return
 
 			list.forEach {
 				Log.d(universalTag, it.toString())
@@ -24,7 +24,7 @@ class Logger(logTag : String)
 
 		fun d(message: String)
 		{
-			if (StaticProvider.DEBUG) return
+			if (!StaticProvider.DEBUG) return
 
 			Log.d(universalTag, message)
 		}
@@ -34,7 +34,7 @@ class Logger(logTag : String)
 
 	fun list(list: List<Any>)
 	{
-		if (StaticProvider.DEBUG) return
+		if (!StaticProvider.DEBUG) return
 
 		list.forEach {
 			Log.d(tag, it.toString())
@@ -43,21 +43,21 @@ class Logger(logTag : String)
 
 	fun i(message: String)
 	{
-		if (StaticProvider.DEBUG) return
+		if (!StaticProvider.DEBUG) return
 
 		Log.i(tag, message)
 	}
 
 	fun w(message: String)
 	{
-		if (StaticProvider.DEBUG) return
+		if (!StaticProvider.DEBUG) return
 
 		Log.w(tag, message)
 	}
 
 	fun e(message: String)
 	{
-		if (StaticProvider.DEBUG) return
+		if (!StaticProvider.DEBUG) return
 
 		Log.e(tag, message)
 	}
