@@ -13,6 +13,8 @@ import me.kosert.ontap.util.Logger
 
 object StaticProvider
 {
+	const val DEBUG = true
+
 	private lateinit var prefs: SharedPreferences
 	private lateinit var memory: SharedPreferences
 
