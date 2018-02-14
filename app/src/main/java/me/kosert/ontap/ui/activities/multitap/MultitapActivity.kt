@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.multitap_activity.*
 import me.kosert.ontap.R
 import me.kosert.ontap.model.BeerItem
 import me.kosert.ontap.ui.activities.AbstractActivity
-import me.kosert.ontap.ui.activities.main.adapters.RecyclerBeerAdapter
+import me.kosert.ontap.ui.activities.multitap.adapters.RecyclerBeerAdapter
 
 /**
  * Created by Kosert on 2018-02-14.

@@ -1,4 +1,4 @@
-package me.kosert.ontap.ui.activities.main.adapters
+package me.kosert.ontap.ui.activities.multitap.adapters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -10,7 +10,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.listview_beer_row.view.*
 import me.kosert.ontap.R
 import me.kosert.ontap.model.BeerItem
-import me.kosert.ontap.ui.activities.main.adapters.RecyclerBeerAdapter.ItemHolder
+import me.kosert.ontap.ui.activities.multitap.adapters.RecyclerBeerAdapter.ItemHolder
 import me.kosert.ontap.util.fromHtml
 import me.kosert.ontap.util.toColor
 
