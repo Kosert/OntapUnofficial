@@ -35,6 +35,18 @@ class RecyclerBeerAdapter(val context: Context, val list: MutableList<BeerItem>)
 		holder?.bind(beer)
 	}
 
+	private var callback: ItemClickCallback? = null
+
+	fun setOnClickCallback(onClickCallback: ItemClickCallback)
+	{
+		callback = onClickCallback
+	}
+
+	interface ItemClickCallback
+	{
+		fun onItemClicked(beerItem: BeerItem)
+	}
+
 	inner class ItemHolder(v: View) : RecyclerView.ViewHolder(v)
 	{
 		private lateinit var beer : BeerItem
@@ -87,6 +99,10 @@ class RecyclerBeerAdapter(val context: Context, val list: MutableList<BeerItem>)
 			brewery.text = beer.brewery
 			style.text = beer.style
 			prices.text = beer.prices
+
+			itemView.setOnClickListener {
+				callback?.onItemClicked(b)
+			}
 		}
 	}
 }
