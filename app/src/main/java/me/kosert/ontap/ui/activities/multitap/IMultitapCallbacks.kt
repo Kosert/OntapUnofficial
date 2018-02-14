@@ -9,5 +9,7 @@ interface IMultitapCallbacks
 {
 	fun setTitle(name : String)
 	fun setAddress(address : String)
+	fun clearBeerList()
 	fun setBeerList(list : List<BeerItem>)
+	var isRefreshing : Boolean
 }

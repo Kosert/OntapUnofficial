@@ -22,7 +22,7 @@ class MultitapController
 	private lateinit var context : Context
 	private lateinit var callbacks: IMultitapCallbacks
 
-	private lateinit var multitapDetails: MultitapDetails
+	private lateinit var multitap: Multitap
 
 	fun onCreate(multitapActivity: MultitapActivity, callbacks: IMultitapCallbacks)
 	{
@@ -32,14 +32,21 @@ class MultitapController
 
 	fun parseIntent(multitapJson : String, detailsJson: String?)
 	{
-		val multitap = StaticProvider.getGson().fromJson(multitapJson, Multitap::class.java)
+		multitap = StaticProvider.getGson().fromJson(multitapJson, Multitap::class.java)
 		detailsJson?.let {
 			val details = StaticProvider.getGson().fromJson(it, MultitapDetails::class.java)
 			callbacks.setAddress(details.address)
-			multitapDetails = details
+			multitap.details = details
 		}
 		callbacks.setTitle(multitap.name)
 
+		callbacks.isRefreshing = true
+		getBeerList(multitap)
+	}
+
+	fun onRefresh()
+	{
+		callbacks.clearBeerList()
 		getBeerList(multitap)
 	}
 
@@ -52,18 +59,19 @@ class MultitapController
 				logger.i("BeerList loaded")
 				multitap.details?.let {
 					callbacks.setAddress(it.address)
-					multitapDetails = it
+					multitap.details = it
 				}
 
 				callbacks.setBeerList(multitap.beers)
+				callbacks.isRefreshing = false
 			}
 
 			override fun onFailure()
 			{
 				Toast.makeText(context, context.getString(R.string.netwok_error), Toast.LENGTH_SHORT).show()
+				callbacks.isRefreshing = false
 			}
 		})
-
 	}
 
 	fun onStarClicked()

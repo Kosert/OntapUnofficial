@@ -43,9 +43,15 @@ class MultitapActivity : AbstractActivity()
 				supportActionBar?.title = name
 			}
 
-			override fun setAddress(address : String)
+			override fun setAddress(address: String)
 			{
 				multitap_address.text = address
+			}
+
+			override fun clearBeerList()
+			{
+				beerList.clear()
+				recyclerAdapter.notifyDataSetChanged()
 			}
 
 			override fun setBeerList(list: List<BeerItem>)
@@ -54,6 +60,17 @@ class MultitapActivity : AbstractActivity()
 				beerList.addAll(list)
 				recyclerAdapter.notifyDataSetChanged()
 			}
+
+			override var isRefreshing: Boolean
+				get() = multitap_swipe_beers.isRefreshing
+				set(value)
+				{
+					multitap_swipe_beers.isRefreshing = value
+				}
+		}
+
+		multitap_swipe_beers.setOnRefreshListener {
+			multitapController.onRefresh()
 		}
 
 		multitapController.onCreate(this@MultitapActivity, callbacks)
@@ -78,25 +95,30 @@ class MultitapActivity : AbstractActivity()
 
 	override fun onOptionsItemSelected(item: MenuItem?): Boolean
 	{
-		return when(item?.itemId)
+		return when (item?.itemId)
 		{
-			android.R.id.home -> {
+			android.R.id.home ->
+			{
 				onBackPressed()
 				true
 			}
-			R.id.multitap_menu_star -> {
+			R.id.multitap_menu_star ->
+			{
 				multitapController.onStarClicked()
 				true
 			}
-			R.id.multitap_menu_map -> {
+			R.id.multitap_menu_map ->
+			{
 				multitapController.onMapClicked()
 				true
 			}
-			R.id.multitap_menu_info -> {
+			R.id.multitap_menu_info ->
+			{
 				multitapController.onInfoClicked()
 				true
 			}
-			else -> {
+			else ->
+			{
 				super.onOptionsItemSelected(item)
 			}
 		}
