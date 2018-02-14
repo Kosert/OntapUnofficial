@@ -1,11 +1,14 @@
 package me.kosert.ontap.ui.activities.multitap
 
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.multitap_activity.*
 import me.kosert.ontap.R
+import me.kosert.ontap.model.BeerItem
 import me.kosert.ontap.ui.activities.AbstractActivity
+import me.kosert.ontap.ui.activities.main.adapters.RecyclerBeerAdapter
 
 /**
  * Created by Kosert on 2018-02-14.
@@ -19,6 +22,7 @@ class MultitapActivity : AbstractActivity()
 	}
 
 	private val multitapController = MultitapController()
+	private val beerList = mutableListOf<BeerItem>()
 
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
@@ -27,6 +31,10 @@ class MultitapActivity : AbstractActivity()
 
 		setSupportActionBar(multitap_toolbar)
 		supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+		val recyclerAdapter = RecyclerBeerAdapter(this@MultitapActivity, beerList)
+		multitap_recycler.adapter = recyclerAdapter
+		multitap_recycler.layoutManager = LinearLayoutManager(this@MultitapActivity)
 
 		val callbacks = object : IMultitapCallbacks
 		{
@@ -40,6 +48,12 @@ class MultitapActivity : AbstractActivity()
 				multitap_address.text = address
 			}
 
+			override fun setBeerList(list: List<BeerItem>)
+			{
+				beerList.clear()
+				beerList.addAll(list)
+				recyclerAdapter.notifyDataSetChanged()
+			}
 		}
 
 		multitapController.onCreate(this@MultitapActivity, callbacks)
@@ -55,7 +69,7 @@ class MultitapActivity : AbstractActivity()
 		menuInflater.inflate(R.menu.multitap_menu, menu)
 		val menuStar = menu?.findItem(R.id.multitap_menu_star)
 
-		//TODO check if in Favorites
+		//TODO check if in Favorites (through controller)
 		//	menuStar?.icon = getDrawable(R.drawable.ic_star_24dp)
 		//	menuStar?.title = getString(R.string.menu_unstar)
 

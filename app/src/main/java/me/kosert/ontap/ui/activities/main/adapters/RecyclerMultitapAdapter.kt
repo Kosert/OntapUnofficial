@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.listview_multitap_row.view.*
 import me.kosert.ontap.R
 import me.kosert.ontap.model.Multitap
 
@@ -48,11 +49,11 @@ class RecyclerMultitapAdapter(val context: Context, val list: MutableList<Multit
 	inner class ItemHolder(v: View) : RecyclerView.ViewHolder(v)
 	{
 		private lateinit var multitap : Multitap
-		private val icon: ImageView = v.findViewById(R.id.item_multitap_image) as ImageView
-		private val name: TextView = v.findViewById(R.id.item_multitap_text_big) as TextView
-		private val address: TextView = v.findViewById(R.id.item_multitap_text_small) as TextView
-		private val taps : TextView = v.findViewById(R.id.item_multitap_text_taps) as TextView
-		private val progress : ProgressBar = v.findViewById(R.id.item_multitap_loading_taps) as ProgressBar
+		private val icon: ImageView = v.item_multitap_image
+		private val name: TextView = v.item_multitap_text_big
+		private val address: TextView = v.item_multitap_text_small
+		private val taps : TextView = v.item_multitap_text_taps
+		private val progress : ProgressBar = v.item_multitap_loading_taps
 
 		fun bind(m: Multitap)
 		{

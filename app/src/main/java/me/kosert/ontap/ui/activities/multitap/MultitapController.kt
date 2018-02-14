@@ -55,7 +55,7 @@ class MultitapController
 					multitapDetails = it
 				}
 
-				//TODO handle beerlist
+				callbacks.setBeerList(multitap.beers)
 			}
 
 			override fun onFailure()
