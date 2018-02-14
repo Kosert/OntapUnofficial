@@ -1,6 +1,5 @@
 # OntapUnofficial
 ## Overview
-**//TODO: This app does not work yet :/**  
 
 Unofficial [ontap.pl](http://ontap.pl) Android app.  
 Gives you an online peek on what polish multitaps have to offer. 
