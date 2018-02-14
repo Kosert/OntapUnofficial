@@ -7,7 +7,7 @@ Gives you an online peek on what polish multitaps have to offer.
 
 ## Features
 - [x] See all multitaps of your city featured on ontap website
-- [ ] Browse offer of every multitap
+- [x] Browse offer of every multitap
 - [ ] Add multitaps to favorites for quick access
 - [ ] New beer notifications
 - [ ] Show multitaps on map
