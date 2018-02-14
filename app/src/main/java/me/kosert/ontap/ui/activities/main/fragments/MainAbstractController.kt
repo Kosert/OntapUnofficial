@@ -1,11 +1,14 @@
 package me.kosert.ontap.ui.activities.main.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.support.annotation.CallSuper
 import me.kosert.ontap.data.DataProvider
 import me.kosert.ontap.data.IDataProvider
 import me.kosert.ontap.data.callbacks.NetworkCallback
 import me.kosert.ontap.model.Multitap
+import me.kosert.ontap.ui.activities.main.adapters.RecyclerMultitapAdapter
+import me.kosert.ontap.ui.activities.multitap.MultitapActivity
 import me.kosert.ontap.util.Logger
 
 /**
@@ -25,6 +28,16 @@ abstract class MainAbstractController
 	open fun onCreate(context: Context, callbacks: ICallbacks)
 	{
 		this.context = context
+
+		callbacks.setOnMultitapClick(object : RecyclerMultitapAdapter.ItemClickCallback
+		{
+			override fun onItemClicked(multitap: Multitap)
+			{
+				//TODO add parameters
+				val intent = Intent(context, MultitapActivity::class.java)
+				context.startActivity(intent)
+			}
+		})
 	}
 
 	fun onScroll()
