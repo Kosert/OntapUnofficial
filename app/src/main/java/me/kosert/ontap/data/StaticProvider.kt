@@ -1,6 +1,7 @@
 package me.kosert.ontap.data
 
 import android.content.SharedPreferences
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import me.kosert.ontap.model.City
 import me.kosert.ontap.model.Multitap
@@ -20,6 +21,11 @@ object StaticProvider
 
 	private val logger = Logger("StaticProvider")
 	private val gson = GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
+
+	fun getGson() : Gson
+	{
+		return gson
+	}
 
 	fun initialize(mem: SharedPreferences, preferences: SharedPreferences)
 	{

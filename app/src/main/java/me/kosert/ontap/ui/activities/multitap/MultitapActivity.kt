@@ -12,6 +12,14 @@ import me.kosert.ontap.ui.activities.AbstractActivity
  */
 class MultitapActivity : AbstractActivity()
 {
+	companion object
+	{
+		const val EXTRA_MULTITAP = "EXTRA_MULTITAP"
+		const val EXTRA_DETAILS = "EXTRA_DETAILS"
+	}
+
+	private val multitapController = MultitapController()
+
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
 		super.onCreate(savedInstanceState)
@@ -20,9 +28,27 @@ class MultitapActivity : AbstractActivity()
 		setSupportActionBar(multitap_toolbar)
 		supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
+		val callbacks = object : IMultitapCallbacks
+		{
+			override fun setTitle(name: String)
+			{
+				supportActionBar?.title = name
+			}
 
+			override fun setAddress(address : String)
+			{
+				multitap_address.text = address
+			}
+
+		}
+
+		multitapController.onCreate(this@MultitapActivity, callbacks)
+
+		val multitapJson = intent.getStringExtra(EXTRA_MULTITAP)
+		val detailsJson = intent.getStringExtra(EXTRA_DETAILS)
+
+		multitapController.parseIntent(multitapJson, detailsJson)
 	}
-
 
 	override fun onCreateOptionsMenu(menu: Menu?): Boolean
 	{
@@ -40,8 +66,20 @@ class MultitapActivity : AbstractActivity()
 	{
 		return when(item?.itemId)
 		{
-			R.id.home -> {
+			android.R.id.home -> {
 				onBackPressed()
+				true
+			}
+			R.id.multitap_menu_star -> {
+				multitapController.onStarClicked()
+				true
+			}
+			R.id.multitap_menu_map -> {
+				multitapController.onMapClicked()
+				true
+			}
+			R.id.multitap_menu_info -> {
+				multitapController.onInfoClicked()
 				true
 			}
 			else -> {
