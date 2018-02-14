@@ -20,6 +20,8 @@ private const val itemViewId = R.layout.listview_multitap_row
 
 class RecyclerMultitapAdapter(val context: Context, val list: MutableList<Multitap>) : RecyclerView.Adapter<RecyclerMultitapAdapter.ItemHolder>()
 {
+	private var callback: ItemClickCallback? = null
+
 	override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ItemHolder {
 		val inflatedView = LayoutInflater.from(parent?.context).inflate(itemViewId, parent, false)
 		return ItemHolder(inflatedView)
@@ -31,6 +33,16 @@ class RecyclerMultitapAdapter(val context: Context, val list: MutableList<Multit
 	{
 		val multitap = list[position]
 		holder?.bind(multitap)
+	}
+
+	fun setOnClickCallback(onClickCallback: ItemClickCallback)
+	{
+		callback = onClickCallback
+	}
+
+	interface ItemClickCallback
+	{
+		fun onItemClicked(multitap: Multitap)
 	}
 
 	inner class ItemHolder(v: View) : RecyclerView.ViewHolder(v)
@@ -48,6 +60,10 @@ class RecyclerMultitapAdapter(val context: Context, val list: MutableList<Multit
 
 			Picasso.with(context).load(multitap.image).into(icon)
 			name.text = multitap.name
+
+			itemView.setOnClickListener {
+				callback?.onItemClicked(multitap)
+			}
 
 			multitap.details?.let {
 				address.text = it.address

@@ -70,6 +70,11 @@ class CitiesFragment : MainAbstractFragment()
 
 		val callbacks = object : ICitiesCallbacks
 		{
+			override fun setOnMultitapClick(onClickCallback: RecyclerMultitapAdapter.ItemClickCallback)
+			{
+				recyclerAdapter.setOnClickCallback(onClickCallback)
+			}
+
 			override fun recyclerNotifyPosition(position: Int)
 			{
 				Handler().post {
