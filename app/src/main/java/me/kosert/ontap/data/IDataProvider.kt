@@ -48,6 +48,7 @@ interface IDataProvider
 
 	/**
 	 * Fetches detailed information about [multitap]
+	 * adds [Multitap.details] object to [multitap]
 	 * Try loading from memory, if fail -> download from web
 	 *  Calls [NetworkCallback.onFailure] when network fetch fails
 	 *  Calls [NetworkCallback.onSuccess] when data is loaded from either source
@@ -55,11 +56,22 @@ interface IDataProvider
 	fun loadMultitapDetails(multitap: Multitap, callback : NetworkCallback)
 
 	/**
-	 * Fetches detailed information about [multitap]
+	 * Fetches detailed information about [multitap],
+	 * adds [Multitap.details] object to [multitap]
 	 * Try loading from memory, if fail -> download from web
 	 * If [forceRefresh] is true -> download from web, if fail -> load from memory
 	 *  Calls [NetworkCallback.onFailure] when network fetch fails
 	 *  Calls [NetworkCallback.onSuccess] when data is loaded from either source
 	 */
 	fun loadMultitapDetails(multitap: Multitap, callback : NetworkCallback, forceRefresh: Boolean)
+
+	/**
+	 * Fetches detailed information about [multitap]
+	 * adds [Multitap.details] object to [multitap]
+	 * This method also parses all beers and adds them to [Multitap.beers]
+	 * Try downloading from web, if fail -> load from memory
+	 *  Calls [NetworkCallback.onFailure] when network fetch fails
+	 *  Calls [NetworkCallback.onSuccess] when data is loaded from either source
+	 */
+	fun loadMultitapWithBeerList(multitap: Multitap, callback : NetworkCallback)
 }

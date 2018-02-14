@@ -123,8 +123,35 @@ object DataProvider : IDataProvider
 				multitap.detailsLoading = false
 				callback.onFailure()
 			}
-		})
+		}, false)
 
+	}
+
+	override fun loadMultitapWithBeerList(multitap: Multitap, callback: NetworkCallback)
+	{
+		//TODO do we need this?
+		multitap.detailsLoading = true
+
+		WebRetriever.downloadMultitapDetails(multitap, object : NetworkCallback
+		{
+			override fun onSuccess()
+			{
+				StaticProvider.Memory.saveMultitapDetails(multitap)
+				multitap.detailsLoading = false
+				callback.onSuccess()
+			}
+
+			override fun onFailure()
+			{
+				if (loadMultitapDetailsFromMemory(multitap))
+				{
+					multitap.detailsLoading = false
+					callback.onSuccess()
+				}
+				multitap.detailsLoading = false
+				callback.onFailure()
+			}
+		}, true)
 	}
 
 	private fun loadMultitapListFromMemory(city: City) : Boolean
