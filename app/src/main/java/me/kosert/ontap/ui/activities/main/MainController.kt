@@ -1,8 +1,10 @@
 package me.kosert.ontap.ui.activities.main
 
 import android.content.Context
+import android.content.Intent
 import android.widget.Toast
 import me.kosert.ontap.R
+import me.kosert.ontap.ui.activities.settings.SettingsActivity
 
 /**
  * Created by Kosert on 2018-02-15.
@@ -71,16 +73,14 @@ class MainController
 		when
 		{
 			callbacks.currentPage == 0 && !editMode ->{
-				Toast.makeText(context, R.string.toast_not_implemented, Toast.LENGTH_SHORT).show()
-				//TODO SETTINGS
+				goToSettings()
 			}
 			callbacks.currentPage == 0 && editMode ->{
 				Toast.makeText(context, R.string.toast_not_implemented, Toast.LENGTH_SHORT).show()
 				//TODO ?
 			}
 			else ->{
-				Toast.makeText(context, R.string.toast_not_implemented, Toast.LENGTH_SHORT).show()
-				//TODO SETTINGS
+				goToSettings()
 			}
 		}
 	}
@@ -102,5 +102,11 @@ class MainController
 				true
 			}
 		}
+	}
+
+	private fun goToSettings()
+	{
+		val intent = Intent(context, SettingsActivity::class.java)
+		context.startActivity(intent)
 	}
 }

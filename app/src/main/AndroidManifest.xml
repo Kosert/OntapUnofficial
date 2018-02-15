@@ -25,9 +25,9 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.activities.multitap.MultitapActivity"
-            />
+        <activity android:name=".ui.activities.multitap.MultitapActivity"/>
+
+        <activity android:name=".ui.activities.settings.SettingsActivity"/>
 
 
     </application>
