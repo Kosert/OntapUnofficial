@@ -21,7 +21,7 @@ fun Element.toCity() : City
 fun Element.toMultitap() : Multitap
 {
 	val a = this.getElementsByTag("a")
-	val name = a[1].html()
+	val name = a[1].html().stripHtml()
 	val url = a[0].attr("href")
 	val image = a[0].children().first().attr("src")
 	return Multitap(name, url, image)
@@ -51,7 +51,7 @@ fun Element.toBeer(): BeerItem
 	val stats = if (statsList.first().isNotEmpty()) statsList else emptyList()
 
 	val name = nameBlock[4].outerHtml().stripHtml().trim()
-	val beerStyle = cmlShadow.eachText().last()
+	val beerStyle = cmlShadow.eachText().last().stripHtml()
 
 	val prices = this.getElementsByClass("col-xs-5").text()
 	val stats2 = this.getElementsByClass("col-xs-7").select("kbd").eachText()
