@@ -30,7 +30,7 @@ class MainController
 				first?.title = context.getString(R.string.menu_edit)
 				first?.setIcon(R.drawable.ic_mode_edit_24dp)
 
-				val second = callbacks.getMenuFirstItem()
+				val second = callbacks.getMenuSecondItem()
 				second?.title = context.getString(R.string.menu_preferences)
 				second?.setIcon(R.drawable.ic_settings_24dp)
 			}
@@ -40,7 +40,7 @@ class MainController
 				first?.title = context.getString(R.string.menu_map)
 				first?.setIcon(R.drawable.ic_map_24dp)
 
-				val second = callbacks.getMenuFirstItem()
+				val second = callbacks.getMenuSecondItem()
 				second?.title = context.getString(R.string.menu_preferences)
 				second?.setIcon(R.drawable.ic_settings_24dp)
 			}
