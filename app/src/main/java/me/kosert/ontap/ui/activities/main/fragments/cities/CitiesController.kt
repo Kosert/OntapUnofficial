@@ -32,21 +32,27 @@ class CitiesController : MainAbstractController()
 		this.callbacks = callbacks as ICitiesCallbacks
 
 		if (dataProvider.cities.isEmpty())
+		{
 			dataProvider.cities.add(0, City(this.context.getString(R.string.choose_city), "", 0))
-		this.callbacks.spinnerNotify()
+			this.callbacks.spinnerNotify()
+			fetchCityList()
+		}
+	}
 
+	private fun fetchCityList()
+	{
 		dataProvider.loadCityList(object : NetworkCallback
 		{
 			override fun onSuccess()
 			{
-				dataProvider.cities.add(0, City(this@CitiesController.context.getString(R.string.choose_city), "", 0))
-				this@CitiesController.callbacks.spinnerNotify()
+				dataProvider.cities.add(0, City(context.getString(R.string.choose_city), "", 0))
+				callbacks.spinnerNotify()
 				logger.i("City list loaded")
 			}
 
 			override fun onFailure()
 			{
-				Toast.makeText(this@CitiesController.context, R.string.netwok_error, Toast.LENGTH_SHORT).show()
+				Toast.makeText(context, R.string.netwok_error, Toast.LENGTH_SHORT).show()
 			}
 		})
 	}
@@ -90,7 +96,5 @@ class CitiesController : MainAbstractController()
 				}
 			}, refresh)
 		}
-
-
 	}
 }
