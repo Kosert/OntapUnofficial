@@ -13,6 +13,7 @@ import me.kosert.ontap.R
 import me.kosert.ontap.data.StaticProvider
 import me.kosert.ontap.ui.activities.main.adapters.RecyclerItemTouchHelper
 import me.kosert.ontap.ui.activities.main.adapters.RecyclerMultitapAdapter
+import me.kosert.ontap.ui.activities.main.fragments.ICallbacks
 import me.kosert.ontap.ui.activities.main.fragments.MainAbstractFragment
 
 /**
@@ -58,12 +59,8 @@ class FavoritesFragment : MainAbstractFragment()
 		val touchHelper = ItemTouchHelper(recyclerTouchOptions)
 		touchHelper.attachToRecyclerView(favs_recycler)
 
-		val callbacks = object : IFavoritesCallbacks
+		val callbacks = object : ICallbacks
 		{
-			override fun recyclerNotify()
-			{
-				recyclerAdapter.notifyDataSetChanged()
-			}
 
 			override fun getLastToLoadPosition(): Int
 			{
@@ -89,7 +86,12 @@ class FavoritesFragment : MainAbstractFragment()
 	override fun onStart()
 	{
 		super.onStart()
-		controller.onStart()
+		notifyFavoritesChanged()
+	}
+
+	fun notifyFavoritesChanged()
+	{
+		recyclerAdapter.notifyDataSetChanged()
 		if (recyclerAdapter.itemCount != 0)
 			favs_text_empty.visibility = View.GONE
 		else

@@ -13,7 +13,7 @@ import kotlin.properties.Delegates
  */
 class FavoritesController : MainAbstractController()
 {
-	override var callbacks by Delegates.notNull<IFavoritesCallbacks>()
+	override var callbacks by Delegates.notNull<ICallbacks>()
 
 	override val logger = Logger("FavoritesController")
 
@@ -25,13 +25,8 @@ class FavoritesController : MainAbstractController()
 	override fun onCreate(context: Context, callbacks: ICallbacks)
 	{
 		super.onCreate(context, callbacks)
-		this.callbacks = callbacks as IFavoritesCallbacks
+		this.callbacks = callbacks
 
 		StaticProvider.Favorites.loadFavorites()
-	}
-
-	fun onStart()
-	{
-		callbacks.recyclerNotify()
 	}
 }

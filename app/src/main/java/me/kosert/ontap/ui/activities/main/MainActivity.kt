@@ -53,7 +53,9 @@ class MainActivity : AbstractActivity()
 					fragment.recyclerTouchOptions.editEnabled = value
 					pagerAdapter.setHideCities(value)
 					pagerAdapter.notifyDataSetChanged()
-					if (!value) fragment.recyclerAdapter.notifyDataSetChanged()
+					if (!value)
+						fragment.notifyFavoritesChanged()
+
 				}
 
 			override var currentPage: Int
