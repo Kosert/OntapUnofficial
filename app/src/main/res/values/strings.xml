@@ -36,6 +36,11 @@
     <string name="settings_other">Other</string>
     <string name="setting_clear">Clear data cache</string>
     <string name="settings_clear_description">Remove cached cities and pubs. Your favorites will not be removed.</string>
+    <string name="settings_notifications_text">Enable Notifications</string>
+    <string name="settings_notifications_description">Get notified about new beers in selected pubs</string>
+    <string name="settings_sound">Sound</string>
+    <string name="settings_vibrate">Vibrate</string>
+    <string name="settings_led">Blink LED</string>
 
     <string name="about_title">About</string>
     <string name="github_url">github.com/Kosert/OntapUnofficial</string>
