@@ -27,7 +27,10 @@ class OntapApplication : Application()
 
 		val memory = getSharedPreferences(getString(R.string.memory_key), Context.MODE_PRIVATE)
 		val prefs = getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE)
-		StaticProvider.initialize(memory, prefs)
-		//StaticProvider.Memory.resetMemory()
+		val favs = getSharedPreferences(getString(R.string.favorites_key), Context.MODE_PRIVATE)
+		StaticProvider.initializeMemory(memory)
+		StaticProvider.initializePrefs(prefs)
+		StaticProvider.initializeFavorites(favs)
+		StaticProvider.Prefs.setDefaultPreferences(false)
 	}
 }
