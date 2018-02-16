@@ -19,7 +19,7 @@ import me.kosert.ontap.model.Multitap
 
 private const val itemViewId = R.layout.listview_multitap_row
 
-class RecyclerMultitapAdapter(val context: Context, val list: MutableList<Multitap>) : RecyclerView.Adapter<RecyclerMultitapAdapter.ItemHolder>()
+class RecyclerMultitapAdapter(val context: Context, val list: MutableList<Multitap>) : RecyclerView.Adapter<RecyclerMultitapAdapter.ItemHolder>(), ItemTouchHelperCallbacks
 {
 	private var callback: ItemClickCallback? = null
 
@@ -44,6 +44,32 @@ class RecyclerMultitapAdapter(val context: Context, val list: MutableList<Multit
 	interface ItemClickCallback
 	{
 		fun onItemClicked(multitap: Multitap)
+	}
+
+	override fun onItemRemove(position: Int)
+	{
+		list.removeAt(position)
+		notifyItemRemoved(position)
+	}
+
+	override fun onItemMove(fromPosition: Int, toPosition: Int) : Boolean
+	{
+		if (fromPosition < toPosition)
+		{
+			for (i in fromPosition until toPosition)
+			{
+				java.util.Collections.swap(list, i, i + 1)
+			}
+		}
+		else
+		{
+			for (i in fromPosition downTo toPosition + 1)
+			{
+				java.util.Collections.swap(list, i, i - 1)
+			}
+		}
+		notifyItemMoved(fromPosition, toPosition)
+		return true
 	}
 
 	inner class ItemHolder(v: View) : RecyclerView.ViewHolder(v)

@@ -8,6 +8,7 @@ import kotlinx.android.synthetic.main.main_activity.*
 import me.kosert.ontap.R
 import me.kosert.ontap.ui.activities.AbstractActivity
 import me.kosert.ontap.ui.activities.main.adapters.MainPagerAdapter
+import me.kosert.ontap.ui.activities.main.fragments.favorites.FavoritesFragment
 
 /**
  * Created by Kosert on 2018-02-10.
@@ -37,12 +38,24 @@ class MainActivity : AbstractActivity()
 			override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 			override fun onPageSelected(position: Int)
 			{
-				mainController.onPageSelected(position)
+				mainController.onPageSelected()
 			}
 		})
 
 		val callbacks = object : IMainCallbacks
 		{
+			override var isEditMode: Boolean
+				get() = !main_viewPager.isSwipingEnabled
+				set(value)
+				{
+					main_viewPager.isSwipingEnabled = !value
+					val fragment = pagerAdapter.getFragment(0) as FavoritesFragment
+					fragment.recyclerTouchOptions.editEnabled = value
+					pagerAdapter.setHideCities(value)
+					pagerAdapter.notifyDataSetChanged()
+					if (!value) fragment.recyclerAdapter.notifyDataSetChanged()
+				}
+
 			override var currentPage: Int
 				get() = main_viewPager.currentItem
 				set(value)

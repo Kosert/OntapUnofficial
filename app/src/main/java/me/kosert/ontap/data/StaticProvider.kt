@@ -119,8 +119,21 @@ object StaticProvider
 	object Favorites
 	{
 		private const val FAVORITES_KEY = "FAVORITES_LIST"
+		private const val FAVORITES_STASH_KEY = "FAVORITES_STASHED_LIST"
 
 		val favoritesList = mutableListOf<Multitap>()
+
+		fun loadFavorites()
+		{
+			if (isFavoritesNotInitialized()) return
+
+			val json = favorites.getString(FAVORITES_KEY, null)
+			json?.let {
+				val list = gson.fromJson(it, arrayOf<Multitap>()::class.java)
+				favoritesList.clear()
+				favoritesList.addAll(list)
+			}
+		}
 
 		fun isFavorite(multitap: Multitap) : Boolean
 		{
@@ -141,7 +154,7 @@ object StaticProvider
 			saveFavorites()
 		}
 
-		private fun saveFavorites()
+		fun saveFavorites()
 		{
 			if (isFavoritesNotInitialized()) return
 
@@ -151,15 +164,23 @@ object StaticProvider
 			editor.apply()
 		}
 
-		fun loadFavorites()
+		fun stashFavorites()
 		{
 			if (isFavoritesNotInitialized()) return
 
-			val json = favorites.getString(FAVORITES_KEY, null)
-			json?.let {
-				val list = gson.fromJson(it, arrayOf<Multitap>()::class.java)
-				favoritesList.clear()
-				favoritesList.addAll(list)
+			val editor = favorites.edit()
+			val json = gson.toJson(favoritesList)
+			editor.putString(FAVORITES_STASH_KEY, json)
+			editor.apply()
+		}
+
+		fun unstashFavorites() : Array<Multitap>?
+		{
+			if (isFavoritesNotInitialized()) return null
+
+			val json = favorites.getString(FAVORITES_STASH_KEY, null)
+			return json?.let {
+				gson.fromJson(it, arrayOf<Multitap>()::class.java)
 			}
 		}
 	}

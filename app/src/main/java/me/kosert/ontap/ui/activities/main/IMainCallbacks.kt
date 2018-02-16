@@ -11,4 +11,5 @@ interface IMainCallbacks
 	fun getMenuFirstItem() : MenuItem?
 	fun getMenuSecondItem() : MenuItem?
 	var currentPage : Int
+	var isEditMode : Boolean
 }

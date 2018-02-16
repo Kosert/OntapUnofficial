@@ -18,8 +18,14 @@ import me.kosert.ontap.ui.activities.main.fragments.favorites.FavoritesFragment
 
 class MainPagerAdapter(private val context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm)
 {
-	private val NUM_ITEMS = 2
+	private var itemCount = 2
 	private val fragments = SparseArray<MainAbstractFragment>()
+
+	fun setHideCities(value : Boolean)
+	{
+		itemCount = if (value) 1
+					else 2
+	}
 
 	fun getFragment(position: Int): MainAbstractFragment?
 	{
@@ -62,6 +68,6 @@ class MainPagerAdapter(private val context: Context, fm: FragmentManager) : Frag
 		return context.getString(MainFragmentType.values().get(position).titleId)
 	}
 
-	override fun getCount() = NUM_ITEMS
+	override fun getCount() = itemCount
 
 }

@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.favorites_fragment.*
 import me.kosert.ontap.R
 import me.kosert.ontap.data.StaticProvider
+import me.kosert.ontap.ui.activities.main.adapters.RecyclerItemTouchHelper
 import me.kosert.ontap.ui.activities.main.adapters.RecyclerMultitapAdapter
 import me.kosert.ontap.ui.activities.main.fragments.MainAbstractFragment
 
@@ -23,6 +25,9 @@ class FavoritesFragment : MainAbstractFragment()
 		get() = favs_recycler
 
 	override val controller = FavoritesController()
+
+	lateinit var recyclerAdapter : RecyclerMultitapAdapter
+	lateinit var recyclerTouchOptions : RecyclerItemTouchHelper
 
 	companion object
 	{
@@ -45,9 +50,13 @@ class FavoritesFragment : MainAbstractFragment()
 	{
 		super.onViewCreated(view, savedInstanceState)
 
-		val recyclerAdapter = RecyclerMultitapAdapter(context, StaticProvider.Favorites.favoritesList)
+		recyclerAdapter = RecyclerMultitapAdapter(context, StaticProvider.Favorites.favoritesList)
 		favs_recycler.adapter = recyclerAdapter
 		favs_recycler.layoutManager = LinearLayoutManager(context)
+
+		recyclerTouchOptions = RecyclerItemTouchHelper(recyclerAdapter, false)
+		val touchHelper = ItemTouchHelper(recyclerTouchOptions)
+		touchHelper.attachToRecyclerView(favs_recycler)
 
 		val callbacks = object : IFavoritesCallbacks
 		{
@@ -81,5 +90,9 @@ class FavoritesFragment : MainAbstractFragment()
 	{
 		super.onStart()
 		controller.onStart()
+		if (recyclerAdapter.itemCount != 0)
+			favs_text_empty.visibility = View.GONE
+		else
+			favs_text_empty.visibility = View.VISIBLE
 	}
 }
