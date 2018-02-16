@@ -19,7 +19,11 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbarFadeDuration="@android:integer/config_shortAnimTime"
+        android:scrollbarSize="3dp"
+        android:scrollbarThumbVertical="@color/colorAccent"
+        android:scrollbars="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,46 +33,57 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="8dp"
-                android:background="@color/colorPrimary"
-                android:text="Notifications"
+                android:paddingBottom="5dp"
+                android:paddingStart="16dp"
+                android:paddingTop="5dp"
+                android:text="@string/settings_notifications"
                 android:textAllCaps="true"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
                 />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@android:color/white"/>
-
-
-            <FrameLayout
-                android:id="@+id/settings_root"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </FrameLayout>
+            <include
+                android:id="@+id/settings_notifications"
+                layout="@layout/preference_notification"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@android:color/white"/>
+
+            <include
+                android:id="@+id/settings_notifications_sound"
+                layout="@layout/preference_sound"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@android:color/white"/>
+
+            <include
+                android:id="@+id/settings_notifications_vibrate"
+                layout="@layout/preference_vibrate"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@android:color/white"/>
+
+            <include
+                android:id="@+id/settings_notifications_led"
+                layout="@layout/preference_led"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="8dp"
-                android:background="@color/colorPrimary"
-                android:text="Pubs you follow"
+                android:paddingBottom="5dp"
+                android:paddingStart="16dp"
+                android:paddingTop="5dp"
+                android:text="@string/settings_following"
                 android:textAllCaps="true"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
                 />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@android:color/white"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -79,8 +94,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:paddingTop="10dp"
                     android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
                     android:text="@string/favs_empty"
                     android:textColor="@android:color/white"/>
 
@@ -93,30 +108,21 @@
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@android:color/white"/>
-
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="8dp"
-                android:background="@color/colorPrimary"
-                android:text="Advanced"
+                android:paddingBottom="5dp"
+                android:paddingStart="16dp"
+                android:paddingTop="5dp"
+                android:text="@string/settings_other"
                 android:textAllCaps="true"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
                 />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@android:color/white"/>
-
             <LinearLayout
                 android:id="@+id/settings_clear_memory"
+                style="@style/SelectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -127,7 +133,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Clear data cache"
+                    android:text="@string/setting_clear"
                     android:textColor="@android:color/white"
                     android:textSize="14sp"
                     android:textStyle="bold"/>
@@ -135,7 +141,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Remove cached cities and pubs"
+                    android:text="@string/settings_clear_description"
                     android:textColor="@android:color/white"/>
             </LinearLayout>
 
@@ -144,54 +150,30 @@
                 android:layout_height="1px"
                 android:background="@android:color/white"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="8dp"
-                android:background="@color/colorPrimary"
-                android:text="About"
-                android:textAllCaps="true"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold"
-                />
-
             <LinearLayout
+                android:id="@+id/settings_about"
+                style="@style/SelectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
                 android:orientation="vertical"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="72dp"
-                    android:src="@drawable/ic_launcher_foreground"
-                    android:scaleType="centerCrop"/>
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/app_name"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="16sp"
+                    android:text="@string/about_title"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
                     android:textStyle="bold"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Wersja 1.0.0.0"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="github.com/Kosert/OntapUnofficial"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:autoLink="web"/>
-
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@android:color/white"/>
 
         </LinearLayout>
 

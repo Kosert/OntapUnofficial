@@ -26,8 +26,8 @@
         </activity>
 
         <activity android:name=".ui.activities.multitap.MultitapActivity"/>
-
         <activity android:name=".ui.activities.settings.SettingsActivity"/>
+        <activity android:name=".ui.activities.about.AboutActivity"/>
 
 
     </application>

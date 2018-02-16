@@ -31,4 +31,15 @@
     <string name="toast_unstarred">%1$s removed from favorites!</string>
     <string name="toast_not_implemented">Not implemented yet :&lt;</string>
 
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_following">Pubs you follow</string>
+    <string name="settings_other">Other</string>
+    <string name="setting_clear">Clear data cache</string>
+    <string name="settings_clear_description">Remove cached cities and pubs. Your favorites will not be removed.</string>
+
+    <string name="about_title">About</string>
+    <string name="github_url">github.com/Kosert/OntapUnofficial</string>
+    <string name="version">Version %1$s</string>
+
+
 </resources>
