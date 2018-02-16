@@ -24,6 +24,9 @@ class MultitapActivity : AbstractActivity()
 	private val multitapController = MultitapController()
 	private val beerList = mutableListOf<BeerItem>()
 
+	private var menuStar : MenuItem? = null
+	private var menuNotification : MenuItem? = null
+
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
 		super.onCreate(savedInstanceState)
@@ -46,6 +49,18 @@ class MultitapActivity : AbstractActivity()
 			override fun setAddress(address: String)
 			{
 				multitap_address.text = address
+			}
+
+			override fun setStarred()
+			{
+				menuStar?.title = getString(R.string.menu_unstar)
+				menuStar?.icon = getDrawable(R.drawable.ic_star_24dp)
+			}
+
+			override fun setUnstarred()
+			{
+				menuStar?.title = getString(R.string.menu_star)
+				menuStar?.icon = getDrawable(R.drawable.ic_star_border_24dp)
 			}
 
 			override fun clearBeerList()
@@ -84,12 +99,9 @@ class MultitapActivity : AbstractActivity()
 	override fun onCreateOptionsMenu(menu: Menu?): Boolean
 	{
 		menuInflater.inflate(R.menu.multitap_menu, menu)
-		val menuStar = menu?.findItem(R.id.multitap_menu_star)
-
-		//TODO check if in Favorites (through controller)
-		//	menuStar?.icon = getDrawable(R.drawable.ic_star_24dp)
-		//	menuStar?.title = getString(R.string.menu_unstar)
-
+		menuStar = menu?.findItem(R.id.multitap_menu_star)
+		menuNotification = menu?.findItem(R.id.multitap_menu_notification)
+		multitapController.onCreateMenu()
 		return true
 	}
 
@@ -107,9 +119,9 @@ class MultitapActivity : AbstractActivity()
 				multitapController.onStarClicked()
 				true
 			}
-			R.id.multitap_menu_map ->
+			R.id.multitap_menu_notification ->
 			{
-				multitapController.onMapClicked()
+				multitapController.onNotificationClicked()
 				true
 			}
 			R.id.multitap_menu_info ->

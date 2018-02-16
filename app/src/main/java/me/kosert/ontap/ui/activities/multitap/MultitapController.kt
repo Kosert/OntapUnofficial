@@ -41,16 +41,16 @@ class MultitapController
 		callbacks.setTitle(multitap.name)
 
 		callbacks.isRefreshing = true
-		getBeerList(multitap)
+		getBeerList(multitap, false)
 	}
 
 	fun onRefresh()
 	{
 		callbacks.clearBeerList()
-		getBeerList(multitap)
+		getBeerList(multitap, true)
 	}
 
-	private fun getBeerList(multitap : Multitap)
+	private fun getBeerList(multitap : Multitap, refresh: Boolean)
 	{
 		dataProvider.loadMultitapWithBeerList(multitap, object : NetworkCallback
 		{
@@ -71,15 +71,20 @@ class MultitapController
 				Toast.makeText(context, context.getString(R.string.netwok_error), Toast.LENGTH_SHORT).show()
 				callbacks.isRefreshing = false
 			}
-		})
+		}, refresh)
+	}
+
+	fun onCreateMenu()
+	{
+		handleFavorite(false)
 	}
 
 	fun onStarClicked()
 	{
-		Toast.makeText(context, context.getString(R.string.toast_not_implemented), Toast.LENGTH_SHORT).show()
+		handleFavorite(true)
 	}
 
-	fun onMapClicked()
+	fun onNotificationClicked()
 	{
 		Toast.makeText(context, context.getString(R.string.toast_not_implemented), Toast.LENGTH_SHORT).show()
 	}
@@ -87,5 +92,27 @@ class MultitapController
 	fun onInfoClicked()
 	{
 		Toast.makeText(context, context.getString(R.string.toast_not_implemented), Toast.LENGTH_SHORT).show()
+	}
+
+	private fun handleFavorite(modify: Boolean)
+	{
+		if (StaticProvider.Favorites.isFavorite(multitap)) {
+			if (modify)
+			{
+				callbacks.setUnstarred()
+				Toast.makeText(context, context.getString(R.string.toast_unstarred, multitap.name), Toast.LENGTH_SHORT).show()
+				StaticProvider.Favorites.removeFavorite(multitap)
+			}
+			else callbacks.setStarred()
+		}
+		else {
+			if (modify)
+			{
+				callbacks.setStarred()
+				Toast.makeText(context, context.getString(R.string.toast_starred, multitap.name), Toast.LENGTH_SHORT).show()
+				StaticProvider.Favorites.addFavorite(multitap)
+			}
+			else callbacks.setUnstarred()
+		}
 	}
 }

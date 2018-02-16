@@ -120,12 +120,13 @@ object StaticProvider
 	{
 		private const val FAVORITES_KEY = "FAVORITES_LIST"
 
-		private val favoritesList = mutableListOf<Multitap>()
+		val favoritesList = mutableListOf<Multitap>()
 
-		fun getFavoritesList() : MutableList<Multitap>
+		fun isFavorite(multitap: Multitap) : Boolean
 		{
-			loadFavorites()
-			return favoritesList
+			return !favoritesList.none {
+				it.url == multitap.url
+			}
 		}
 
 		fun addFavorite(multitap: Multitap)
@@ -150,7 +151,7 @@ object StaticProvider
 			editor.apply()
 		}
 
-		private fun loadFavorites()
+		fun loadFavorites()
 		{
 			if (isFavoritesNotInitialized()) return
 

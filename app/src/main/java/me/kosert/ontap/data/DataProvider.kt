@@ -1,6 +1,8 @@
 package me.kosert.ontap.data
 
+import android.os.Handler
 import me.kosert.ontap.data.callbacks.NetworkCallback
+import me.kosert.ontap.model.BeerItem
 import me.kosert.ontap.model.City
 import me.kosert.ontap.model.Multitap
 import me.kosert.ontap.util.Logger
@@ -127,16 +129,34 @@ object DataProvider : IDataProvider
 
 	}
 
-	override fun loadMultitapWithBeerList(multitap: Multitap, callback: NetworkCallback)
+	private val beerLists = mutableMapOf<String, List<BeerItem>>()
+	private fun addToMap(pubUrl: String, list: List<BeerItem>)
 	{
-		//TODO do we need this?
-		multitap.detailsLoading = true
+		beerLists[pubUrl] = list
+		Handler().postDelayed({
+			beerLists.remove(pubUrl)
+		}, 300000)
+	}
 
+	override fun loadMultitapWithBeerList(multitap: Multitap, callback: NetworkCallback, refresh: Boolean)
+	{
+		if (!refresh)
+		{
+			beerLists[multitap.url]?.let {
+				multitap.beers.clear()
+				multitap.beers.addAll(it)
+				callback.onSuccess()
+				return
+			}
+		}
+
+		multitap.detailsLoading = true
 		WebRetriever.downloadMultitapDetails(multitap, object : NetworkCallback
 		{
 			override fun onSuccess()
 			{
 				StaticProvider.Memory.saveMultitapDetails(multitap)
+				addToMap(multitap.url, multitap.beers)
 				multitap.detailsLoading = false
 				callback.onSuccess()
 			}

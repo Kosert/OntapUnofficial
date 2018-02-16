@@ -73,5 +73,5 @@ interface IDataProvider
 	 *  Calls [NetworkCallback.onFailure] when network fetch fails
 	 *  Calls [NetworkCallback.onSuccess] when data is loaded from either source
 	 */
-	fun loadMultitapWithBeerList(multitap: Multitap, callback : NetworkCallback)
+	fun loadMultitapWithBeerList(multitap: Multitap, callback : NetworkCallback, refresh: Boolean)
 }

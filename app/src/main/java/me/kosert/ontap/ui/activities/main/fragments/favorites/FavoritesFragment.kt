@@ -1,13 +1,16 @@
 package me.kosert.ontap.ui.activities.main.fragments.favorites
 
 import android.os.Bundle
+import android.os.Handler
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.favorites_fragment.*
 import me.kosert.ontap.R
-import me.kosert.ontap.ui.activities.main.fragments.MainAbstractController
+import me.kosert.ontap.data.StaticProvider
+import me.kosert.ontap.ui.activities.main.adapters.RecyclerMultitapAdapter
 import me.kosert.ontap.ui.activities.main.fragments.MainAbstractFragment
 
 /**
@@ -18,8 +21,8 @@ class FavoritesFragment : MainAbstractFragment()
 {
 	override val recyclerView: RecyclerView
 		get() = favs_recycler
-	override val controller: MainAbstractController
-		get() = TODO("not implemented")
+
+	override val controller = FavoritesController()
 
 	companion object
 	{
@@ -38,4 +41,45 @@ class FavoritesFragment : MainAbstractFragment()
 		return inflater.inflate(R.layout.favorites_fragment, container, false)
 	}
 
+	override fun onViewCreated(view: View?, savedInstanceState: Bundle?)
+	{
+		super.onViewCreated(view, savedInstanceState)
+
+		val recyclerAdapter = RecyclerMultitapAdapter(context, StaticProvider.Favorites.favoritesList)
+		favs_recycler.adapter = recyclerAdapter
+		favs_recycler.layoutManager = LinearLayoutManager(context)
+
+		val callbacks = object : IFavoritesCallbacks
+		{
+			override fun recyclerNotify()
+			{
+				recyclerAdapter.notifyDataSetChanged()
+			}
+
+			override fun getLastToLoadPosition(): Int
+			{
+				return this@FavoritesFragment.getLastToLoadPosition()
+			}
+
+			override fun recyclerNotifyPosition(position: Int)
+			{
+				Handler().post {
+					recyclerAdapter.notifyItemChanged(position)
+				}
+			}
+
+			override fun setOnMultitapClick(onClickCallback: RecyclerMultitapAdapter.ItemClickCallback)
+			{
+				recyclerAdapter.setOnClickCallback(onClickCallback)
+			}
+		}
+
+		controller.onCreate(context, callbacks)
+	}
+
+	override fun onStart()
+	{
+		super.onStart()
+		controller.onStart()
+	}
 }
