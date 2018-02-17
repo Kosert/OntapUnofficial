@@ -37,12 +37,14 @@ class MainController
 				callbacks.isEditMode = true
 				adjustIcons()
 				StaticProvider.Favorites.stashFavorites()
+				Toast.makeText(context, context.getString(R.string.toast_edit_enabled), Toast.LENGTH_SHORT).show()
 			}
 			callbacks.currentPage == 0 && editMode -> {
 				editMode = false
 				callbacks.isEditMode = false
 				adjustIcons()
 				StaticProvider.Favorites.saveFavorites()
+				Toast.makeText(context, context.getString(R.string.toast_edit_saved), Toast.LENGTH_SHORT).show()
 			}
 			else ->{
 				Toast.makeText(context, R.string.toast_not_implemented, Toast.LENGTH_SHORT).show()

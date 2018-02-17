@@ -55,7 +55,6 @@ class MainActivity : AbstractActivity()
 					pagerAdapter.notifyDataSetChanged()
 					if (!value)
 						fragment.notifyFavoritesChanged()
-
 				}
 
 			override var currentPage: Int

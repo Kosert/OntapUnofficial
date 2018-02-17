@@ -31,6 +31,8 @@
 
     <string name="netwok_error">Network Error. Data may be obsolete.</string>
 
+    <string name="toast_edit_enabled">Edit mode enabled</string>
+    <string name="toast_edit_saved">Favorites saved!</string>
     <string name="toast_starred">%1$s added to favorites!</string>
     <string name="toast_unstarred">%1$s removed from favorites!</string>
     <string name="toast_not_implemented">Not implemented yet :&lt;</string>
