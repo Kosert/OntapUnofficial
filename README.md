@@ -14,7 +14,7 @@ Gives you an online peek on what polish multitaps have to offer.
 - [ ] Available in Polish and English
 
 ## Screenshots
-//TODO
+<img src="../master/Animated_1.gif" width="360" height="640" title="Editing Favorites"/> <img src="../master/Screenshot_1.png" width="360" height="640" title="Cities"/>
 
 ## Attributions
 - [Ontap](http://ontap.pl)
