@@ -140,21 +140,23 @@ class InfoDialogFragment : DialogFragment()
 
 	private fun adjustNotificationButton()
 	{
-		if (buttonNotification.isEnabled)
+		if (StaticProvider.Favorites.isNotificationEnabled(multitap))
 		{
-			buttonNotification.alpha = 1f
-			if (StaticProvider.Favorites.isNotificationEnabled(multitap))
-			{
-				buttonNotification.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_notification_on_24dp, 0,0, 0)
-			}
-			else
-			{
-				buttonNotification.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_notification_off_24dp, 0,0, 0)
-			}
+			buttonNotification.setText(R.string.menu_unfollow)
+			buttonNotification.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_notification_on_24dp, 0,0, 0)
 		}
 		else
 		{
+			buttonNotification.setText(R.string.menu_follow)
 			buttonNotification.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_notification_off_24dp, 0,0, 0)
+		}
+
+		if (buttonNotification.isEnabled)
+		{
+			buttonNotification.alpha = 1f
+		}
+		else
+		{
 			buttonNotification.alpha = 0.5f
 		}
 	}

@@ -161,6 +161,7 @@ object StaticProvider
 			val json = gson.toJson(favoritesList)
 			editor.putString(FAVORITES_KEY, json)
 			editor.apply()
+			syncNotificationsWithFavorites()
 		}
 
 		fun stashFavorites()
@@ -225,6 +226,18 @@ object StaticProvider
 				val list = gson.fromJson(it, arrayOf<Multitap>()::class.java)
 				notificationList.clear()
 				notificationList.addAll(list)
+			}
+		}
+
+		private fun syncNotificationsWithFavorites()
+		{
+			notificationList.forEach {
+
+				val isInFavorites = favoritesList.any {
+					x -> x.url == it.url
+				}
+				if (!isInFavorites)
+					removeNotification(it)
 			}
 		}
 	}

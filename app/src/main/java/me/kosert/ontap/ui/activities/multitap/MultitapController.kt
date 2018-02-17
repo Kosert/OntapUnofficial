@@ -88,7 +88,16 @@ class MultitapController
 
 	fun onNotificationClicked()
 	{
-		Toast.makeText(context, context.getString(R.string.toast_not_implemented), Toast.LENGTH_SHORT).show()
+		if (StaticProvider.Favorites.isNotificationEnabled(multitap))
+		{
+			StaticProvider.Favorites.removeNotification(multitap)
+			Toast.makeText(context, context.getString(R.string.toast_unfollowed, multitap.name), Toast.LENGTH_SHORT).show()
+		}
+		else
+		{
+			StaticProvider.Favorites.addNotification(multitap)
+			Toast.makeText(context, context.getString(R.string.toast_followed, multitap.name), Toast.LENGTH_SHORT).show()
+		}
 	}
 
 	fun onMapClicked()

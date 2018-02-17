@@ -39,6 +39,8 @@
     <string name="toast_unstarred">%1$s removed from favorites!</string>
     <string name="toast_not_implemented">Not implemented yet :&lt;</string>
     <string name="toast_cache_cleared">Cache memory cleared!</string>
+    <string name="toast_followed">Enabled notifications for %1$s</string>
+    <string name="toast_unfollowed">Disabled notifications for %1$s</string>
 
     <string name="settings_notifications">Notifications</string>
     <string name="settings_following">Pubs you follow</string>
