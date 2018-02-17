@@ -13,6 +13,11 @@ class Logger(logTag : String)
 	{
 		private const val universalTag = "OntapUnofficial"
 
+		init
+		{
+			Log.d(universalTag, "DEBUG MODE IS " + if(StaticProvider.DEBUG) "ON" else "OFF")
+		}
+
 		fun list(list: List<Any>)
 		{
 			if (!StaticProvider.DEBUG) return

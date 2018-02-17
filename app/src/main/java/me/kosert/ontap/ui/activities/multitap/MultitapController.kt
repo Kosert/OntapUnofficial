@@ -9,7 +9,9 @@ import me.kosert.ontap.data.StaticProvider
 import me.kosert.ontap.data.callbacks.NetworkCallback
 import me.kosert.ontap.model.Multitap
 import me.kosert.ontap.model.MultitapDetails
+import me.kosert.ontap.util.ExternalUtil
 import me.kosert.ontap.util.Logger
+
 
 /**
  * Created by Kosert on 2018-02-14.
@@ -89,9 +91,29 @@ class MultitapController
 		Toast.makeText(context, context.getString(R.string.toast_not_implemented), Toast.LENGTH_SHORT).show()
 	}
 
-	fun onInfoClicked()
+	fun onMapClicked()
 	{
 		Toast.makeText(context, context.getString(R.string.toast_not_implemented), Toast.LENGTH_SHORT).show()
+	}
+
+	fun onInfoClicked()
+	{
+		callbacks.showDialog(multitap)
+	}
+
+	fun goToWebsite()
+	{
+		multitap.details?.let {
+			ExternalUtil.launchWebsite(context, it.website)
+		}
+	}
+
+	fun launchPhone()
+	{
+		multitap.details?.let {
+			if (it.phone.isNotEmpty())
+				ExternalUtil.launchDialer(context, it.phone)
+		}
 	}
 
 	private fun handleFavorite(modify: Boolean)

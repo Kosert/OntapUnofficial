@@ -5,7 +5,10 @@ import me.kosert.ontap.data.callbacks.NetworkCallback
 import me.kosert.ontap.model.City
 import me.kosert.ontap.model.Multitap
 import me.kosert.ontap.model.MultitapDetails
-import me.kosert.ontap.util.*
+import me.kosert.ontap.util.Logger
+import me.kosert.ontap.util.toBeer
+import me.kosert.ontap.util.toCity
+import me.kosert.ontap.util.toMultitap
 import okhttp3.*
 import org.jsoup.Jsoup
 import java.io.IOException
@@ -154,8 +157,8 @@ object WebRetriever
 		val a = addressBlock.getElementsByTag("a")
 		val coords =
 				if (a.size > 0)
-					a.first().attr("href").substringAfter("=").split(",").toPair()
-				else Pair("","")
+					a.first().attr("href").substringAfter("=").split(",").toTypedArray()
+				else arrayOf("", "")
 
 		val website =
 				if(a.size > 1)

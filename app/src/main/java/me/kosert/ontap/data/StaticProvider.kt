@@ -61,7 +61,6 @@ object StaticProvider
 	object Prefs
 	{
 		enum class PrefType(val prefKey : String) {
-
 			NOTIFICATIONS_KEY("ENABLE_NOTIFICATIONS"),
 			SOUND_KEY("ENABLE_SOUND"),
 			VIBRATE_KEY("ENABLE_VIBRATE"),
@@ -183,6 +182,51 @@ object StaticProvider
 				gson.fromJson(it, arrayOf<Multitap>()::class.java)
 			}
 		}
+
+		private const val NOTIFICATIONS_KEY = "NOTIFICATIONS_LIST"
+
+		private val notificationList = mutableListOf<Multitap>()
+
+		fun isNotificationEnabled(multitap: Multitap) : Boolean
+		{
+			return !notificationList.none {
+				it.url == multitap.url
+			}
+		}
+
+		fun addNotification(multitap: Multitap)
+		{
+			notificationList.add(multitap)
+			saveNotifications()
+		}
+
+		fun removeNotification(multitap: Multitap)
+		{
+			notificationList.removeAll { x -> x.url == multitap.url }
+			saveNotifications()
+		}
+
+		fun saveNotifications()
+		{
+			if (isFavoritesNotInitialized()) return
+
+			val editor = favorites.edit()
+			val json = gson.toJson(notificationList)
+			editor.putString(NOTIFICATIONS_KEY, json)
+			editor.apply()
+		}
+
+		fun loadNotifications()
+		{
+			if (isFavoritesNotInitialized()) return
+
+			val json = favorites.getString(NOTIFICATIONS_KEY, null)
+			json?.let {
+				val list = gson.fromJson(it, arrayOf<Multitap>()::class.java)
+				notificationList.clear()
+				notificationList.addAll(list)
+			}
+		}
 	}
 
 	/**
@@ -197,6 +241,8 @@ object StaticProvider
 		fun resetMemory()
 		{
 			if (isMemoryNotInitialized()) return
+
+			DataProvider.clearMap()
 			memory.edit().clear().apply()
 		}
 

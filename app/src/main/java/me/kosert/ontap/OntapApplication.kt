@@ -31,6 +31,9 @@ class OntapApplication : Application()
 		StaticProvider.initializeMemory(memory)
 		StaticProvider.initializePrefs(prefs)
 		StaticProvider.initializeFavorites(favs)
+
 		StaticProvider.Prefs.setDefaultPreferences(false)
+		StaticProvider.Favorites.loadFavorites()
+		StaticProvider.Favorites.loadNotifications()
 	}
 }

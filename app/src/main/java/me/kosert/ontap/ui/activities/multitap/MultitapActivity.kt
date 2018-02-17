@@ -7,8 +7,10 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.multitap_activity.*
 import me.kosert.ontap.R
 import me.kosert.ontap.model.BeerItem
+import me.kosert.ontap.model.Multitap
 import me.kosert.ontap.ui.activities.AbstractActivity
 import me.kosert.ontap.ui.activities.multitap.adapters.RecyclerBeerAdapter
+import me.kosert.ontap.ui.dialogs.InfoDialogFragment
 
 /**
  * Created by Kosert on 2018-02-14.
@@ -25,7 +27,7 @@ class MultitapActivity : AbstractActivity()
 	private val beerList = mutableListOf<BeerItem>()
 
 	private var menuStar : MenuItem? = null
-	private var menuNotification : MenuItem? = null
+	private var menuMap : MenuItem? = null
 
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
@@ -33,7 +35,7 @@ class MultitapActivity : AbstractActivity()
 		setContentView(R.layout.multitap_activity)
 
 		setSupportActionBar(multitap_toolbar)
-		supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+		supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 		val recyclerAdapter = RecyclerBeerAdapter(this@MultitapActivity, beerList)
 		multitap_recycler.adapter = recyclerAdapter
@@ -76,6 +78,14 @@ class MultitapActivity : AbstractActivity()
 				recyclerAdapter.notifyDataSetChanged()
 			}
 
+			override fun showDialog(multitap : Multitap)
+			{
+				val ft = supportFragmentManager.beginTransaction()
+				val dialog = InfoDialogFragment.newInstance(multitap)
+				dialog.multitapController = multitapController
+				dialog.show(ft, "INFO_DIALOG")
+			}
+
 			override var isRefreshing: Boolean
 				get() = multitap_swipe_beers.isRefreshing
 				set(value)
@@ -100,7 +110,7 @@ class MultitapActivity : AbstractActivity()
 	{
 		menuInflater.inflate(R.menu.multitap_menu, menu)
 		menuStar = menu?.findItem(R.id.multitap_menu_star)
-		menuNotification = menu?.findItem(R.id.multitap_menu_notification)
+		menuMap = menu?.findItem(R.id.multitap_menu_map)
 		multitapController.onCreateMenu()
 		return true
 	}
@@ -119,9 +129,9 @@ class MultitapActivity : AbstractActivity()
 				multitapController.onStarClicked()
 				true
 			}
-			R.id.multitap_menu_notification ->
+			R.id.multitap_menu_map ->
 			{
-				multitapController.onNotificationClicked()
+				multitapController.onMapClicked()
 				true
 			}
 			R.id.multitap_menu_info ->

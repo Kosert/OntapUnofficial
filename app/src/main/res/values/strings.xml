@@ -24,10 +24,12 @@
 
     <string name="menu_star">Add to Favorites</string>
     <string name="menu_unstar">Remove from Favorites</string>
-    <string name="menu_follow">Notify about changes</string>
-    <string name="menu_unfollow">Stop notifying</string>
+    <string name="menu_follow">Enable notifications</string>
+    <string name="menu_unfollow">Stop notifications</string>
     <string name="menu_map">Show on map</string>
     <string name="menu_info">More information</string>
+
+    <string name="dialog_call">Call %1$s</string>
 
     <string name="netwok_error">Network Error. Data may be obsolete.</string>
 

@@ -130,6 +130,12 @@ object DataProvider : IDataProvider
 	}
 
 	private val beerLists = mutableMapOf<String, List<BeerItem>>()
+
+	fun clearMap()
+	{
+		beerLists.clear()
+	}
+
 	private fun addToMap(pubUrl: String, list: List<BeerItem>)
 	{
 		beerLists[pubUrl] = list

@@ -26,7 +26,5 @@ class FavoritesController : MainAbstractController()
 	{
 		super.onCreate(context, callbacks)
 		this.callbacks = callbacks
-
-		StaticProvider.Favorites.loadFavorites()
 	}
 }

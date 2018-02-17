@@ -88,8 +88,3 @@ fun Element.toBeer(): BeerItem
 			url,
 			allStatistics)
 }
-
-fun List<String>.toPair() : Pair<String, String>
-{
-	return Pair(this[0], this[1])
-}

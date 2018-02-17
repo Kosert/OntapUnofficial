@@ -10,11 +10,11 @@ class MultitapDetails(
 		@Expose val website: String,
 		@Expose val phone: String,
 		@Expose var beerCount: Int,
-		@Expose val coords: Pair<String, String>
+		@Expose val coords: Array<String>
 )
 {
 	var invalidated : Boolean = false
 
 	// empty constructor required by Gson
-	private constructor() : this("", "", "", 0, Pair("",""))
+	private constructor() : this("", "", "", 0, arrayOf("", ""))
 }

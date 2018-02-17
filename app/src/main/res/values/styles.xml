@@ -9,7 +9,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <!--<item name="colorControlHighlight">@android:color/darker_gray</item>-->
+        <item name="colorControlHighlight">@android:color/darker_gray</item>
         <item name="android:colorEdgeEffect">@color/colorAccent</item>
     </style>
 
@@ -57,33 +57,6 @@
     <style name="SelectableItemBackground">
         <item name="android:theme">@style/SelectableItemTheme</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
-    </style>
-
-    <!--  ######################################################################  -->
-
-    <style name="OntapAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:windowTitleStyle">@style/DialogWindowTitle</item>
-        <item name="android:colorAccent">@color/colorAccent</item>
-        <item name="colorControlHighlight">@android:color/darker_gray</item>
-    </style>
-
-    <style name="DialogWindowTitle">
-        <item name="android:textAppearance">@style/TextAppearance.DialogWindowTitle</item>
-    </style>
-
-    <style name="TextAppearance.DialogWindowTitle" parent="@android:style/TextAppearance.DeviceDefault.DialogWindowTitle">
-        <item name="android:textColor">@android:color/white</item>
-    </style>
-
-    <!--  ######################################################################  -->
-
-    <style name="OntapProgressDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:progressBackgroundTint">@color/colorAccentDark</item>
-        <item name="android:progressTint">@color/colorAccent</item>
-        <item name="android:textColorTertiary">@color/colorAccent</item>
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:windowTitleStyle">@style/DialogWindowTitle</item>
     </style>
 
     <!--  ######################################################################  -->

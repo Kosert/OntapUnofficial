@@ -8,10 +8,10 @@
         android:title="@string/menu_star"
         app:showAsAction="always" />
     <item
-        android:id="@+id/multitap_menu_notification"
-        android:icon="@drawable/ic_notification_off_24dp"
+        android:id="@+id/multitap_menu_map"
+        android:icon="@drawable/ic_map_24dp"
         android:orderInCategory="2"
-        android:title="@string/menu_follow"
+        android:title="@string/menu_map"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/multitap_menu_info"
