@@ -29,6 +29,15 @@
         <activity android:name=".ui.activities.settings.SettingsActivity"/>
         <activity android:name=".ui.activities.about.AboutActivity"/>
 
+        <service android:name=".background.NotificationService"
+                 android:label="@string/notification_service"
+                 android:permission="android.permission.BIND_JOB_SERVICE"/>
+
+        <receiver android:name="background.PhoneBootReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
     </application>
 
