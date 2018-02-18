@@ -45,7 +45,7 @@ class SettingsController
 
 	fun onClearMemory()
 	{
-		StaticProvider.Memory.resetMemory()
+		StaticProvider.Memory.resetMemory(context)
 		Toast.makeText(context, R.string.toast_cache_cleared, Toast.LENGTH_SHORT).show()
 	}
 

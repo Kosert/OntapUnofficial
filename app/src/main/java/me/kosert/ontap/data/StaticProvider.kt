@@ -1,8 +1,11 @@
 package me.kosert.ontap.data
 
+import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.PicassoUtil
 import me.kosert.ontap.model.City
 import me.kosert.ontap.model.Multitap
 import me.kosert.ontap.model.MultitapDetails
@@ -251,12 +254,13 @@ object StaticProvider
 		private const val MULTITAP_LIST_PREFIX = "MULTITAP_LIST_"
 		private const val MULTITAP_PREFIX = "MULTITAP_"
 
-		fun resetMemory()
+		fun resetMemory(context: Context)
 		{
 			if (isMemoryNotInitialized()) return
 
 			DataProvider.clearMap()
 			memory.edit().clear().apply()
+			PicassoUtil.clearCache(Picasso.with(context))
 		}
 
 		fun getCityList() : List<City>?
