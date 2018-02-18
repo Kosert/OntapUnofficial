@@ -26,15 +26,15 @@ class SettingsController
 		{
 			override fun onItemClicked(multitap: Multitap)
 			{
-				if (StaticProvider.Favorites.isNotificationEnabled(multitap))
+				if (StaticProvider.NotificationMemory.isNotificationEnabled(multitap))
 				{
-					StaticProvider.Favorites.removeNotification(multitap)
+					StaticProvider.NotificationMemory.removeNotification(multitap)
 					callbacks.notifyRecycler()
 
 				}
 				else
 				{
-					StaticProvider.Favorites.addNotification(multitap)
+					StaticProvider.NotificationMemory.addNotification(multitap)
 					callbacks.notifyRecycler()
 				}
 			}

@@ -88,14 +88,14 @@ class MultitapController
 
 	fun onNotificationClicked()
 	{
-		if (StaticProvider.Favorites.isNotificationEnabled(multitap))
+		if (StaticProvider.NotificationMemory.isNotificationEnabled(multitap))
 		{
-			StaticProvider.Favorites.removeNotification(multitap)
+			StaticProvider.NotificationMemory.removeNotification(multitap)
 			Toast.makeText(context, context.getString(R.string.toast_unfollowed, multitap.name), Toast.LENGTH_SHORT).show()
 		}
 		else
 		{
-			StaticProvider.Favorites.addNotification(multitap)
+			StaticProvider.NotificationMemory.addNotification(multitap)
 			Toast.makeText(context, context.getString(R.string.toast_followed, multitap.name), Toast.LENGTH_SHORT).show()
 		}
 	}

@@ -61,7 +61,7 @@ class RecyclerNotificationAdapter(val context: Context, val list: MutableList<Mu
 				callback?.onItemClicked(multitap)
 			}
 
-			if (StaticProvider.Favorites.isNotificationEnabled(multitap))
+			if (StaticProvider.NotificationMemory.isNotificationEnabled(multitap))
 			{
 				icon.setImageDrawable(context.getDrawable(R.drawable.ic_notification_on_24dp))
 				icon.clearColorFilter()
