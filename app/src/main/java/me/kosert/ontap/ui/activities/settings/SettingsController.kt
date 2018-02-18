@@ -5,7 +5,9 @@ import android.content.Intent
 import android.widget.Toast
 import me.kosert.ontap.R
 import me.kosert.ontap.data.StaticProvider
+import me.kosert.ontap.model.Multitap
 import me.kosert.ontap.ui.activities.about.AboutActivity
+import me.kosert.ontap.ui.activities.settings.adapters.RecyclerNotificationAdapter
 
 /**
  * Created by Kosert on 2018-02-16.
@@ -20,27 +22,54 @@ class SettingsController
 		this.context = context
 		this.callbacks = callbacks
 
-		//callbacks.setPrefs()
+		val recyclerCallbacks = object : RecyclerNotificationAdapter.ItemClickCallback
+		{
+			override fun onItemClicked(multitap: Multitap)
+			{
+				if (StaticProvider.Favorites.isNotificationEnabled(multitap))
+				{
+					Toast.makeText(context, context.getString(R.string.toast_unfollowed, multitap.name), Toast.LENGTH_SHORT).show()
+					StaticProvider.Favorites.removeNotification(multitap)
+					callbacks.notifyRecycler()
+
+				}
+				else
+				{
+					Toast.makeText(context, context.getString(R.string.toast_followed, multitap.name), Toast.LENGTH_SHORT).show()
+					StaticProvider.Favorites.addNotification(multitap)
+					callbacks.notifyRecycler()
+				}
+			}
+		}
+
+		callbacks.setRecyclerCallback(recyclerCallbacks)
+
+		val notify = StaticProvider.Prefs.getPrefBoolean(StaticProvider.Prefs.PrefType.NOTIFICATIONS_KEY)
+		val sound = StaticProvider.Prefs.getPrefBoolean(StaticProvider.Prefs.PrefType.SOUND_KEY)
+		val vibrate = StaticProvider.Prefs.getPrefBoolean(StaticProvider.Prefs.PrefType.VIBRATE_KEY)
+		val led = StaticProvider.Prefs.getPrefBoolean(StaticProvider.Prefs.PrefType.LED_KEY)
+
+		callbacks.setPrefs(notify, sound, vibrate, led)
 	}
 
 	fun enableNotifications(checked: Boolean)
 	{
-		Toast.makeText(context, R.string.toast_not_implemented, Toast.LENGTH_SHORT).show()
+		StaticProvider.Prefs.setPrefBoolean(StaticProvider.Prefs.PrefType.NOTIFICATIONS_KEY, checked)
 	}
 
 	fun enableSound(checked: Boolean)
 	{
-		Toast.makeText(context, R.string.toast_not_implemented, Toast.LENGTH_SHORT).show()
+		StaticProvider.Prefs.setPrefBoolean(StaticProvider.Prefs.PrefType.SOUND_KEY, checked)
 	}
 
 	fun enableVibrate(checked: Boolean)
 	{
-		Toast.makeText(context, R.string.toast_not_implemented, Toast.LENGTH_SHORT).show()
+		StaticProvider.Prefs.setPrefBoolean(StaticProvider.Prefs.PrefType.VIBRATE_KEY, checked)
 	}
 
 	fun enableLed(checked: Boolean)
 	{
-		Toast.makeText(context, R.string.toast_not_implemented, Toast.LENGTH_SHORT).show()
+		StaticProvider.Prefs.setPrefBoolean(StaticProvider.Prefs.PrefType.LED_KEY, checked)
 	}
 
 	fun onClearMemory()

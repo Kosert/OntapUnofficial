@@ -1,6 +1,7 @@
 package me.kosert.ontap.ui.activities.settings
 
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.preference_led.*
 import kotlinx.android.synthetic.main.preference_notification.*
@@ -8,7 +9,9 @@ import kotlinx.android.synthetic.main.preference_sound.*
 import kotlinx.android.synthetic.main.preference_vibrate.*
 import kotlinx.android.synthetic.main.settings_activity.*
 import me.kosert.ontap.R
+import me.kosert.ontap.data.StaticProvider
 import me.kosert.ontap.ui.activities.AbstractActivity
+import me.kosert.ontap.ui.activities.settings.adapters.RecyclerNotificationAdapter
 
 /**
  * Created by Kosert on 2018-02-15.
@@ -55,8 +58,22 @@ class SettingsActivity : AbstractActivity()
 			settingsController.onAbout()
 		}
 
+		val adapter = RecyclerNotificationAdapter(this, StaticProvider.Favorites.favoritesList)
+		settings_recycler.adapter = adapter
+		settings_recycler.layoutManager = LinearLayoutManager(this)
+
 		val callbacks = object : ISettingsCallbacks
 		{
+			override fun notifyRecycler()
+			{
+				adapter.notifyDataSetChanged()
+			}
+
+			override fun setRecyclerCallback(onClickCallback: RecyclerNotificationAdapter.ItemClickCallback)
+			{
+				adapter.setOnClickCallback(onClickCallback)
+			}
+
 			override fun setPrefs(notifis: Boolean, sound: Boolean, vibrate: Boolean, led: Boolean)
 			{
 				settings_notifications_checkbox.isChecked = notifis

@@ -99,15 +99,11 @@ object StaticProvider
 			editor.apply()
 		}
 
-		fun getPrefBoolean(prefType : PrefType) : Boolean?
+		fun getPrefBoolean(prefType : PrefType) : Boolean
 		{
-			if (isPrefsNotInitialized()) return null
+			if (isPrefsNotInitialized()) return false
 
-			return if(prefs.contains(prefType.prefKey))
-			{
-				prefs.getBoolean(prefType.prefKey, false)
-			}
-			else null
+			return prefs.getBoolean(prefType.prefKey, false)
 		}
 
 		fun setPrefBoolean(prefType: PrefType, value: Boolean)
@@ -210,7 +206,7 @@ object StaticProvider
 			saveNotifications()
 		}
 
-		fun saveNotifications()
+		private fun saveNotifications()
 		{
 			if (isFavoritesNotInitialized()) return
 
