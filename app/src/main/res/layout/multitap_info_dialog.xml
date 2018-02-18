@@ -127,7 +127,7 @@
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
                 android:drawableStart="@drawable/ic_map_24dp"
-                android:text="Show on map"/>
+                android:text="@string/dialog_map"/>
 
             <Button
                 android:id="@+id/multitap_dialog_button_website"
@@ -137,7 +137,7 @@
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
                 android:drawableStart="@drawable/ic_public_black_24dp"
-                android:text="Go to website"/>
+                android:text="@string/dialog_website"/>
 
             <Button
                 android:id="@+id/multitap_dialog_button_call"

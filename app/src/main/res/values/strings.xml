@@ -29,6 +29,9 @@
     <string name="menu_map">Show on map</string>
     <string name="menu_info">More information</string>
 
+    <string name="dialog_map">Show on map</string>
+    <string name="dialog_website">Go to website</string>
+    <string name="dialog_facebook">Go to facebook page</string>
     <string name="dialog_call">Call %1$s</string>
 
     <string name="netwok_error">Network Error. Data may be obsolete.</string>

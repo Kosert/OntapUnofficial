@@ -96,8 +96,11 @@ class InfoDialogFragment : DialogFragment()
 				view.multitap_dialog_button_website.visibility = GONE
 			else
 			{
-				it.website.contains("facebook")
+				if(it.website.contains("facebook"))
+				{
 					view.multitap_dialog_button_website.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_facebook, 0,0,0)
+					view.multitap_dialog_button_website.text = getString(R.string.dialog_facebook)
+				}
 				view.multitap_dialog_button_website.setOnClickListener {
 					multitapController.goToWebsite()
 				}
