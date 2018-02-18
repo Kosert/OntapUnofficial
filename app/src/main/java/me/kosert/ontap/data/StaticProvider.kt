@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.PicassoUtil
+import me.kosert.ontap.model.BeerState
 import me.kosert.ontap.model.City
 import me.kosert.ontap.model.Multitap
 import me.kosert.ontap.model.MultitapDetails
@@ -190,6 +191,11 @@ object StaticProvider
 
 		private val notificationList = mutableListOf<Multitap>()
 
+		fun getNotificationList() : List<Multitap>
+		{
+			return notificationList
+		}
+
 		fun isNotificationEnabled(multitap: Multitap) : Boolean
 		{
 			return !notificationList.none {
@@ -241,6 +247,36 @@ object StaticProvider
 				if (!isInFavorites)
 					removeNotification(it)
 			}
+		}
+
+		private const val MULTITAP_LAST_STATE_PREFIX = "MULTITAP_LAST_STATE_"
+
+		fun removeLastMultitapState(multitap: Multitap)
+		{
+			val editor = favorites.edit()
+			val key = MULTITAP_LAST_STATE_PREFIX + multitap.url
+			editor.remove(key)
+			editor.apply()
+		}
+
+		fun saveLastMultitapState(multitap: Multitap, list: List<BeerState>)
+		{
+			val editor = favorites.edit()
+			val key = MULTITAP_LAST_STATE_PREFIX + multitap.url
+			val json = gson.toJson(list)
+			editor.putString(key, json)
+			editor.apply()
+		}
+
+		fun getLastMultitapState(multitap: Multitap) : List<BeerState>
+		{
+			val key = MULTITAP_LAST_STATE_PREFIX + multitap.url
+			val json = favorites.getString(key, null)
+
+			json?.let {
+				return gson.fromJson(json, arrayOf<BeerState>()::class.java).toList()
+			}
+			return emptyList()
 		}
 	}
 
