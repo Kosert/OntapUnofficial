@@ -28,14 +28,12 @@ class SettingsController
 			{
 				if (StaticProvider.Favorites.isNotificationEnabled(multitap))
 				{
-					Toast.makeText(context, context.getString(R.string.toast_unfollowed, multitap.name), Toast.LENGTH_SHORT).show()
 					StaticProvider.Favorites.removeNotification(multitap)
 					callbacks.notifyRecycler()
 
 				}
 				else
 				{
-					Toast.makeText(context, context.getString(R.string.toast_followed, multitap.name), Toast.LENGTH_SHORT).show()
 					StaticProvider.Favorites.addNotification(multitap)
 					callbacks.notifyRecycler()
 				}
