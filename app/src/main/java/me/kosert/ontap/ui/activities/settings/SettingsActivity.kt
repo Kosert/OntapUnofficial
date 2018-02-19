@@ -1,6 +1,7 @@
 package me.kosert.ontap.ui.activities.settings
 
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.preference_led.*
@@ -61,6 +62,10 @@ class SettingsActivity : AbstractActivity()
 		val adapter = RecyclerNotificationAdapter(this, StaticProvider.Favorites.favoritesList)
 		settings_recycler.adapter = adapter
 		settings_recycler.layoutManager = LinearLayoutManager(this)
+
+		Handler().post{
+			settings_scrollview.scrollTo(0, 0)
+		}
 
 		val callbacks = object : ISettingsCallbacks
 		{

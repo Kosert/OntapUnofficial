@@ -17,7 +17,8 @@
     </android.support.v7.widget.Toolbar>
 
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/settings_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbarFadeDuration="@android:integer/config_shortAnimTime"
@@ -184,6 +185,6 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>
