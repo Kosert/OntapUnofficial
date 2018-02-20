@@ -9,6 +9,7 @@ class MultitapDetails(
 		@Expose val address: String,
 		@Expose val website: String,
 		@Expose val phone: String,
+		@Expose val messenger: String,
 		@Expose var beerCount: Int,
 		@Expose val coords: Array<String>
 )
@@ -16,5 +17,5 @@ class MultitapDetails(
 	var invalidated : Boolean = false
 
 	// empty constructor required by Gson
-	private constructor() : this("", "", "", 0, arrayOf("", ""))
+	private constructor() : this("", "", "", "",0, arrayOf("", ""))
 }

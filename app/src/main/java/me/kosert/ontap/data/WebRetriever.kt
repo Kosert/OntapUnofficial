@@ -152,26 +152,34 @@ object WebRetriever
 		val addressBlock = doc.getElementsByTag("address").first()
 		val adr = addressBlock.children()[0].nextSibling().outerHtml().split(",").dropLast(1).joinToString(",").trim()
 
-		val a = addressBlock.getElementsByTag("a")
-		val coords =
-				if (a.size > 0)
-					a.first().attr("href").substringAfter("=").split(",").toTypedArray()
-				else arrayOf("", "")
+		val faMapMarker = doc.getElementsByClass("fa-map-marker")
+		val coords = if(faMapMarker.size > 1)
+			faMapMarker.first().parent().attr("href").substringAfter("=").split(",").toTypedArray()
+		else
+			arrayOf("", "")
 
+		val faGlobe = doc.getElementsByClass("fa-globe")
 		val website =
-				if(a.size > 1)
-					addressBlock.select("a")[1].attr("href")
+				if(faGlobe.size > 0)
+					faGlobe.first().parent().attr("href")
 				else ""
 
+		val faPhone = doc.getElementsByClass("fa-phone")
 		val phone =
-				if(a.size > 2)
-					addressBlock.select("a")[2].attr("href")
+				if(faPhone.size > 0)
+					faPhone.first().parent().attr("href")
+				else ""
+
+		val faMessenger = doc.getElementsByClass("fa-commenting")
+		val messenger =
+				if(faMessenger.size > 0)
+					faMessenger.first().parent().attr("href")
 				else ""
 
 		val beerElemets = doc.getElementsByClass("row")[1].children().dropLast(1)
 		val beerCount = beerElemets.size
 
-		multitap.details = MultitapDetails(adr, website, phone, beerCount, coords)
+		multitap.details = MultitapDetails(adr, website, phone, messenger, beerCount, coords)
 
 		if (doBeerList)
 		{
