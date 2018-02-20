@@ -31,6 +31,8 @@ class MultitapActivity : AbstractActivity()
 
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
+		setTheme(R.style.AppTheme_NoActionBar)
+
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.multitap_activity)
 
