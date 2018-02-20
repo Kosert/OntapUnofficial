@@ -2,6 +2,7 @@ package me.kosert.ontap.util
 
 import me.kosert.ontap.data.WebRetriever.mainPageUrl
 import me.kosert.ontap.model.BeerItem
+import me.kosert.ontap.model.BeerState
 import me.kosert.ontap.model.City
 import me.kosert.ontap.model.Multitap
 import org.jsoup.nodes.Element
@@ -87,4 +88,20 @@ fun Element.toBeer(): BeerItem
 			badgesFromatted,
 			url,
 			allStatistics)
+}
+
+fun Element.toBeerState() : BeerState
+{
+	val name = this.getElementsByClass("cml_shadow")
+			.first().children().first().childNodes()[4]
+			.outerHtml().stripHtml().trim()
+
+	val brewery = this.getElementsByClass("brewery").text().stripHtml()
+
+	return BeerState(name, brewery)
+}
+
+fun BeerItem.toBeerState() : BeerState
+{
+	return BeerState(this.name, this.brewery)
 }

@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import me.kosert.ontap.R
 import me.kosert.ontap.data.StaticProvider
-import me.kosert.ontap.util.NotificationUtil
+import me.kosert.ontap.util.BackgroundUtil
 
 /**
  * Created by Kosert on 2018-02-18.
@@ -21,6 +21,6 @@ class PhoneBootReceiver : BroadcastReceiver()
 		}
 
 		if (StaticProvider.Prefs.getPrefBoolean(StaticProvider.Prefs.PrefType.NOTIFICATIONS_KEY))
-			NotificationUtil.scheduleJob(context)
+			BackgroundUtil.scheduleJob(context)
 	}
 }

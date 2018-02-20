@@ -8,6 +8,7 @@ import me.kosert.ontap.data.StaticProvider
 import me.kosert.ontap.model.Multitap
 import me.kosert.ontap.ui.activities.about.AboutActivity
 import me.kosert.ontap.ui.activities.settings.adapters.RecyclerNotificationAdapter
+import me.kosert.ontap.util.BackgroundUtil
 
 /**
  * Created by Kosert on 2018-02-16.
@@ -53,6 +54,11 @@ class SettingsController
 	fun enableNotifications(checked: Boolean)
 	{
 		StaticProvider.Prefs.setPrefBoolean(StaticProvider.Prefs.PrefType.NOTIFICATIONS_KEY, checked)
+		if (checked)
+			BackgroundUtil.scheduleJob(context)
+		else
+			BackgroundUtil.disableJob(context)
+
 	}
 
 	fun enableSound(checked: Boolean)

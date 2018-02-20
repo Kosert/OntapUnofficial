@@ -10,7 +10,7 @@ import me.kosert.ontap.background.NotificationService
 /**
  * Created by Kosert on 2018-02-18.
  */
-class NotificationUtil
+class BackgroundUtil
 {
 	companion object
 	{
@@ -27,5 +27,10 @@ class NotificationUtil
 			jobScheduler.schedule(builder.build())
 		}
 
+		fun disableJob(context: Context)
+		{
+			val jobScheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+			jobScheduler.cancel(JOB_ID)
+		}
 	}
 }

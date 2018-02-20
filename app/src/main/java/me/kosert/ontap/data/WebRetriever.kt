@@ -1,14 +1,12 @@
 package me.kosert.ontap.data
 
 import android.os.Handler
+import me.kosert.ontap.data.callbacks.BeerStatesCallback
 import me.kosert.ontap.data.callbacks.NetworkCallback
 import me.kosert.ontap.model.City
 import me.kosert.ontap.model.Multitap
 import me.kosert.ontap.model.MultitapDetails
-import me.kosert.ontap.util.Logger
-import me.kosert.ontap.util.toBeer
-import me.kosert.ontap.util.toCity
-import me.kosert.ontap.util.toMultitap
+import me.kosert.ontap.util.*
 import okhttp3.*
 import org.jsoup.Jsoup
 import java.io.IOException
@@ -182,9 +180,55 @@ object WebRetriever
 				logger.i(beer.toString())
 				return@map beer
 			}
+
+			if (StaticProvider.NotificationMemory.isNotificationEnabled(multitap))
+			{
+				val beerStates = beerList.map {
+					it.toBeerState()
+				}
+				StaticProvider.NotificationMemory.saveLastMultitapState(multitap, beerStates)
+			}
+
 			multitap.beers.clear()
 			multitap.beers.addAll(beerList)
 		}
 	}
 
+	fun downloadMultitapBeerStates(multitap: Multitap, callback: BeerStatesCallback)
+	{
+		val http = OkHttpClient()
+
+		val request = Request.Builder()
+				.url(multitap.url)
+				.build()
+
+		http.newCall(request).enqueue(object : Callback
+		{
+			override fun onFailure(call: Call?, e: IOException?)
+			{
+				mainHandler.post {
+					logger.e(e.toString())
+					callback.onFailure()
+				}
+			}
+
+			override fun onResponse(call: Call?, response: Response)
+			{
+				val body = response.body()!!.string()
+
+				val doc = Jsoup.parse(body)
+				val beerElemets = doc.getElementsByClass("row")[1].children().dropLast(1)
+
+				val list = beerElemets.map {
+					it.toBeerState()
+				}
+
+				Logger.list(list)
+
+				mainHandler.post{
+					callback.onSuccess(list)
+				}
+			}
+		})
+	}
 }
