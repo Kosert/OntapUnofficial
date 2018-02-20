@@ -106,6 +106,15 @@ class InfoDialogFragment : DialogFragment()
 				}
 			}
 
+			if (it.messenger.isEmpty())
+				view.multitap_dialog_button_messenger.visibility = GONE
+			else
+			{
+				view.multitap_dialog_button_messenger.setOnClickListener {
+					multitapController.launchMessenger()
+				}
+			}
+
 			if (it.phone.isEmpty())
 				view.multitap_dialog_button_call.visibility = GONE
 			else
@@ -120,6 +129,7 @@ class InfoDialogFragment : DialogFragment()
 		} ?: run {
 			view.multitap_dialog_button_map.visibility = GONE
 			view.multitap_dialog_button_website.visibility = GONE
+			view.multitap_dialog_button_messenger.visibility = GONE
 			view.multitap_dialog_button_call.visibility = GONE
 		}
 

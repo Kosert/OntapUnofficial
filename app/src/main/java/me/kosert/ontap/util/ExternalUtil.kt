@@ -51,6 +51,22 @@ class ExternalUtil
 			context.startActivity(intent)
 		}
 
+		fun launchMessenger(context: Context, uri: String)
+		{
+			val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+
+			try
+			{
+				val packageManager = context.packageManager
+				if(packageManager.getApplicationInfo("com.facebook.orca", 0).enabled)
+					intent.`package` = "com.facebook.orca"
+
+			}
+			catch (e : PackageManager.NameNotFoundException) { }
+
+			context.startActivity(intent)
+		}
+
 		fun launchNavigation()
 		{
 			//TODO Google Maps directions

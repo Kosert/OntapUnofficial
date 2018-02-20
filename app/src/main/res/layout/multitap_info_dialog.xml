@@ -140,6 +140,16 @@
                 android:text="@string/dialog_website"/>
 
             <Button
+                android:id="@+id/multitap_dialog_button_messenger"
+                style="@style/BorderlessButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:drawableStart="@drawable/ic_facebook_messenger"
+                android:text="@string/dialog_messenger"/>
+
+            <Button
                 android:id="@+id/multitap_dialog_button_call"
                 style="@style/BorderlessButton"
                 android:layout_width="match_parent"
@@ -148,7 +158,6 @@
                 android:layout_marginRight="3dp"
                 android:drawableStart="@drawable/ic_phone_24dp"
                 android:text="@string/dialog_call"/>
-
         </LinearLayout>
 
     </LinearLayout>

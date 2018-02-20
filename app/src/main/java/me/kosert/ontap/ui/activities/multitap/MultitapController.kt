@@ -113,7 +113,16 @@ class MultitapController
 	fun goToWebsite()
 	{
 		multitap.details?.let {
-			ExternalUtil.launchWebsite(context, it.website)
+			if (it.website.isNotEmpty())
+				ExternalUtil.launchWebsite(context, it.website)
+		}
+	}
+
+	fun launchMessenger()
+	{
+		multitap.details?.let {
+			if (it.messenger.isNotEmpty())
+				ExternalUtil.launchMessenger(context, it.messenger)
 		}
 	}
 
