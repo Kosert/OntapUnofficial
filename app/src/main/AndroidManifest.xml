@@ -40,6 +40,11 @@
             </intent-filter>
         </receiver>
 
-    </application>
+        <receiver android:name=".background.NotificationDismissReceiver">
+            <intent-filter>
+                <action android:name="me.kosert.ontap.NOTIFICATION_DISMISSED"/>
+            </intent-filter>
+        </receiver>
 
+    </application>
 </manifest>

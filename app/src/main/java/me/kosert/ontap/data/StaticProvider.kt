@@ -122,6 +122,11 @@ object StaticProvider
 
 		val favoritesList = mutableListOf<Multitap>()
 
+		fun getPosition(multitap: Multitap) : Int
+		{
+			return favoritesList.indexOfFirst { x -> x.url == multitap.url}
+		}
+
 		fun loadFavorites()
 		{
 			if (isFavoritesNotInitialized()) return
@@ -250,9 +255,43 @@ object StaticProvider
 		}
 
 		private const val MULTITAP_LAST_STATE_PREFIX = "MULTITAP_LAST_STATE_"
+		private const val MULTITAP_NOT_READ_PREFIX = "MULTITAP_NOT_READ_"
 
+
+		fun removeNotReadFlag(multitap: Multitap)
+		{
+			if (isFavoritesNotInitialized()) return
+
+			val editor = favorites.edit()
+			val key = MULTITAP_NOT_READ_PREFIX + multitap.url
+			editor.remove(key)
+			editor.apply()
+
+		}
+
+		fun setNotReadCount(multitap: Multitap, count: Int)
+		{
+			if (isFavoritesNotInitialized()) return
+
+			val editor = favorites.edit()
+			val key = MULTITAP_NOT_READ_PREFIX + multitap.url
+			editor.putInt(key, count)
+			editor.apply()
+		}
+
+		fun getNotReadCount(multitap: Multitap) : Int
+		{
+			if (isFavoritesNotInitialized()) return 0
+
+			val key = MULTITAP_NOT_READ_PREFIX + multitap.url
+			return favorites.getInt(key, 0)
+		}
+
+		//TODO
 		fun removeLastMultitapState(multitap: Multitap)
 		{
+			if (isFavoritesNotInitialized()) return
+
 			val editor = favorites.edit()
 			val key = MULTITAP_LAST_STATE_PREFIX + multitap.url
 			editor.remove(key)
@@ -261,6 +300,8 @@ object StaticProvider
 
 		fun saveLastMultitapState(multitap: Multitap, list: List<BeerState>)
 		{
+			if (isFavoritesNotInitialized()) return
+
 			val editor = favorites.edit()
 			val key = MULTITAP_LAST_STATE_PREFIX + multitap.url
 			val json = gson.toJson(list)
@@ -270,6 +311,8 @@ object StaticProvider
 
 		fun getLastMultitapState(multitap: Multitap) : List<BeerState>
 		{
+			if (isFavoritesNotInitialized()) return emptyList()
+
 			val key = MULTITAP_LAST_STATE_PREFIX + multitap.url
 			val json = favorites.getString(key, null)
 

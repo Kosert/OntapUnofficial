@@ -43,6 +43,8 @@ class MultitapController
 		callbacks.setTitle(multitap.name)
 
 		callbacks.isRefreshing = true
+		StaticProvider.NotificationMemory.removeNotReadFlag(multitap)
+
 		getBeerList(multitap, false)
 	}
 

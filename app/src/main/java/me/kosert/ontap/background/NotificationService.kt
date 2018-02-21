@@ -49,16 +49,27 @@ class NotificationService : JobService()
 
 					if (newBeers.size > 0)
 					{
-						Logger.d("NEW BEERS!!! CREATING NOTIFICATION")
-						NotificationUtil.showNotification(this@NotificationService, it, newBeers)
+						Logger.d("NEW BEERS!!! CREATING NOTIFICATION " + it.name)
+						val unread = StaticProvider.NotificationMemory.getNotReadCount(it)
+
+						if (unread > 0)
+						{
+							repeat(StaticProvider.NotificationMemory.getNotReadCount(it), {
+								newBeers.add(BeerState("fake", "fake"))
+							})
+							NotificationUtil.showNotification(this@NotificationService, it, newBeers)
+							StaticProvider.NotificationMemory.setNotReadCount(it, newBeers.size)
+						}
+						else
+						{
+							NotificationUtil.showNotification(this@NotificationService, it, newBeers)
+							StaticProvider.NotificationMemory.setNotReadCount(it, newBeers.size)
+						}
+						StaticProvider.NotificationMemory.saveLastMultitapState(it, list)
 					}
 					else
 					{
 						Logger.d("NO NEW BEERS")
-						//NotificationUtil.showNotification(
-						//		this@NotificationService,
-						//		Multitap("Fajny pub", "http://penis", ""),
-						//		listOf(BeerState("Nowe Piwo", "Browarex")))
 					}
 				}
 			})

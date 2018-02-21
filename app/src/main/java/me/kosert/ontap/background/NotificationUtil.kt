@@ -42,6 +42,8 @@ class NotificationUtil
 			notificationManager.createNotificationChannel(channel)
 		}
 
+		private const val NOTIFICATION_DISMISSED = "me.kosert.ontap.NOTIFICATION_DISMISSED"
+
 		private fun createNotification(context: Context, multitap: Multitap, newBeers: List<BeerState>): Notification
 		{
 			val channelId = context.getString(R.string.notification_channel_id)
@@ -63,10 +65,23 @@ class NotificationUtil
 					.setAutoCancel(true)
 
 
+			val requestId = StaticProvider.Favorites.getPosition(multitap)
+			val requestId2 = requestId + 10000
+
+			val deleteIntent = Intent(context, NotificationDismissReceiver::class.java)
+			deleteIntent.action = NOTIFICATION_DISMISSED
+			val json = StaticProvider.getGson().toJson(multitap)
+			deleteIntent.putExtra(MULTITAP_JSON_EXTRA, json)
+			val deletePendingIntent = PendingIntent.getBroadcast(context, requestId, deleteIntent, 0)
+
+			builder.setDeleteIntent(deletePendingIntent)
+
 			val intent = Intent(context, MultitapActivity::class.java)
 			val multitapJson = StaticProvider.getGson().toJson(multitap)
+
 			intent.putExtra(MultitapActivity.EXTRA_MULTITAP, multitapJson)
-			val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+			val pendingIntent = PendingIntent.getActivity(context, requestId2, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
 			builder.setContentIntent(pendingIntent)
 
 			if (StaticProvider.Prefs.getPrefBoolean(StaticProvider.Prefs.PrefType.SOUND_KEY))
@@ -86,8 +101,6 @@ class NotificationUtil
 			return builder.build()
 		}
 
-		private const val notifyTagPrefix = "me.kosert.ontap.notification_"
-
 		fun showNotification(context: Context, multitap: Multitap, newBeers: List<BeerState>)
 		{
 			if (StaticProvider.isPrefsNotInitialized())
@@ -101,8 +114,8 @@ class NotificationUtil
 
 			val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-			val tag = notifyTagPrefix + multitap.url
-			notificationManager.notify(tag, 7, notification)
+			val requestId = StaticProvider.Favorites.getPosition(multitap)
+			notificationManager.notify(requestId, notification)
 		}
 	}
 }
