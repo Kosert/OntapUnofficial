@@ -7,6 +7,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.media.RingtoneManager
 import android.os.Build
 import android.support.v4.app.NotificationCompat
 import me.kosert.ontap.R
@@ -70,7 +71,8 @@ class NotificationUtil
 
 			if (StaticProvider.Prefs.getPrefBoolean(StaticProvider.Prefs.PrefType.SOUND_KEY))
 			{
-				builder.setDefaults(Notification.DEFAULT_SOUND)
+				val uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+				builder.setSound(uri)
 			}
 			if (StaticProvider.Prefs.getPrefBoolean(StaticProvider.Prefs.PrefType.VIBRATE_KEY))
 			{
