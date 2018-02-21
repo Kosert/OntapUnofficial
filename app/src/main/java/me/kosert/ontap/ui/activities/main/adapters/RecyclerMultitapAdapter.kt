@@ -94,7 +94,7 @@ class RecyclerMultitapAdapter(val context: Context, val list: MutableList<Multit
 
 			multitap.details?.let {
 				address.text = it.address
-				taps.text = context.getString(R.string.taps, it.beerCount)
+				taps.text =  context.resources.getQuantityString(R.plurals.taps, it.beerCount, it.beerCount)
 				progress.visibility = View.GONE
 			} ?: run {
 				address.text = ""
