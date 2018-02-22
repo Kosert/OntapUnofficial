@@ -17,6 +17,10 @@ class BeerState(
 
 	fun equals(other: BeerState): Boolean
 	{
+		// ignore empty taps
+		if(name == "" || brewery == "")
+			return true
+
 		if (name != other.name) return false
 		if (brewery != other.brewery) return false
 
