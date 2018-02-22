@@ -2,8 +2,6 @@ package me.kosert.ontap.background
 
 import android.app.job.JobParameters
 import android.app.job.JobService
-import android.content.Context
-import me.kosert.ontap.R
 import me.kosert.ontap.data.StaticProvider
 import me.kosert.ontap.data.WebRetriever
 import me.kosert.ontap.data.callbacks.BeerStatesCallback
@@ -19,12 +17,6 @@ class NotificationService : JobService()
 	override fun onStartJob(params: JobParameters?): Boolean
 	{
 		Logger.d("JOB STARTED")
-		if (StaticProvider.isFavoritesNotInitialized())
-		{
-			Logger.d("FAVS NOT INITIALIZED!")
-			val favs = getSharedPreferences(getString(R.string.favorites_key), Context.MODE_PRIVATE)
-			StaticProvider.initializeFavorites(favs)
-		}
 
 		StaticProvider.NotificationMemory.getNotificationList().forEach {
 
