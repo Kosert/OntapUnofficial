@@ -2,8 +2,10 @@ package me.kosert.ontap
 
 import android.app.Application
 import android.content.Context
+import android.os.Build
 import com.squareup.picasso.Picasso
 import me.kosert.ontap.data.StaticProvider
+import me.kosert.ontap.data.WebRetriever
 import me.kosert.ontap.util.BackgroundUtil
 
 
@@ -36,6 +38,13 @@ class OntapApplication : Application()
 		StaticProvider.Prefs.setDefaultPreferences(false)
 		StaticProvider.Favorites.loadFavorites()
 		StaticProvider.NotificationMemory.loadNotifications()
+
+		@Suppress("DEPRECATION")
+		val languageTag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+			resources.configuration.locales.get(0).toLanguageTag() //if API >=24
+		else
+			resources.configuration.locale.toLanguageTag() //else use method deprecated in API 24
+		WebRetriever.init(languageTag)
 
 		BackgroundUtil.checkJob(this)
 	}

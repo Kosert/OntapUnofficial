@@ -1,0 +1,87 @@
+<resources>
+    <string name="label_favs">Ulubione</string>
+    <string name="label_cities">Miasta</string>
+
+    <string name="favs_empty">Lista ulubionych jest pusta!</string>
+
+    <string name="choose_city">Wybierz miasto</string>
+
+    <string name="menu_edit">Edytuj</string>
+    <string name="menu_save">Zapisz</string>
+    <string name="menu_preferences">Ustawienia</string>
+    <string name="menu_help">Pomoc</string>
+
+    <plurals name="taps">
+        <item quantity="one">%1$d kran</item>
+        <item quantity="few">%1$d krany</item>
+        <item quantity="many">%1$d kranów</item>
+        <item quantity="other">%1$d kranów</item>
+    </plurals>
+
+    <string name="loading">Ładowanie…</string>
+
+    <string name="menu_star">Dodaj do ulubionych</string>
+    <string name="menu_unstar">Usuń z ulubionych</string>
+    <string name="menu_follow">Włącz powiadomienia</string>
+    <string name="menu_unfollow">Wyłącz powiadomienia</string>
+    <string name="menu_map">Pokaż na mapie</string>
+    <string name="menu_info">Więcej informacji</string>
+
+    <string name="dialog_map">Pokaż na mapie</string>
+    <string name="dialog_website">Strona internetowa</string>
+    <string name="dialog_facebook">Strona na Facebook\'u</string>
+    <string name="dialog_messenger">Kontakt przez Messenger</string>
+    <string name="dialog_call">Zadzwoń %1$s</string>
+
+    <string name="netwok_error">Błąd sieciowy. Dane mogą być przestarzałe.</string>
+
+    <string name="toast_edit_enabled">Włączono tryb edycji!</string>
+    <string name="toast_edit_saved">Zapisano ulubione!</string>
+    <string name="toast_starred">Dodano %1$s do ulubionych!</string>
+    <string name="toast_unstarred">Usunięto %1$s z ulubionych!</string>
+    <string name="toast_not_implemented">To jeszcze nie działa :&lt;</string>
+    <string name="toast_cache_cleared">Wyczyszczono pamięć podręczną!</string>
+    <string name="toast_followed">Włączono powiadomienia dla %1$s</string>
+    <string name="toast_unfollowed">Wyłączono powiadomienia dla %1$s</string>
+
+    <string name="settings_notifications">Powiadomienia</string>
+    <string name="settings_following">Śledzone puby</string>
+    <string name="settings_other">Inne</string>
+    <string name="setting_clear">Wyczyść pamięć podręczną</string>
+    <string name="settings_clear_description">Usuń pamięć miast i pubów. Ulubione i powiadomienia nie zostaną usunięte.</string>
+    <string name="settings_notifications_text">Powiadomienia</string>
+    <string name="settings_notifications_description">Otzymuj powiadomienia o nowych piwach w wybranych pubach.</string>
+    <string name="settings_sound">Dźwięk</string>
+    <string name="settings_vibrate">Wibracje</string>
+    <string name="settings_led">Zamigaj LED</string>
+    <string name="settings_sync_period">Częstotliwość synchronizacji</string>
+    <string-array name="settings_sync_times">
+        <item>Co 5 minut</item>
+        <item>Co 15 minut</item>
+        <item>Co 30 minut</item>
+        <item>Co godzinę</item>
+    </string-array>
+
+    <string name="about_title">O aplikacji</string>
+    <string name="version">Wersja %1$s</string>
+
+    <string name="notification_service">Usługa powiadomień.</string>
+    <string name="notification_channel_name">Nowe piwa</string>
+    <string name="notification_channel_description">Powiadomienia o nowych piwach w wybranych pubach</string>
+
+    <plurals name="notification_title">
+        <item quantity="one">Nowe piwo w %2$s!</item>
+        <item quantity="few">%1$d nowe piwa w %2$s!</item>
+        <item quantity="many">%1$d nowych piw w %2$s!</item>
+        <item quantity="other">%1$d nowych piw w %2$s!</item>
+    </plurals>
+
+    <string name="notification_text_one">%1$s - %2$s</string>
+    <plurals name="notification_text_more">
+        <item quantity="one">%1$s - %2$s i jedno inne</item>
+        <item quantity="few">%1$s - %2$s i %3$d inne</item>
+        <item quantity="many">%1$s - %2$s i %3$d innych</item>
+        <item quantity="other">%1$s - %2$s i %3$d innych</item>
+    </plurals>
+
+</resources>

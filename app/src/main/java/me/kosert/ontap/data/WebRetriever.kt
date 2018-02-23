@@ -22,12 +22,20 @@ object WebRetriever
 
 	const val mainPageUrl = "http://ontap.pl/"
 
+	private var languageTag = "*"
+
+	fun init(languageTag : String)
+	{
+		this.languageTag = languageTag
+	}
+
 	fun downloadCityList(callback: NetworkCallback)
 	{
 		val http = OkHttpClient()
 
 		val request = Request.Builder()
 				.url(mainPageUrl)
+				.header("Accept-Language", languageTag)
 				.build()
 
 		http.newCall(request).enqueue(object : Callback
@@ -74,6 +82,7 @@ object WebRetriever
 
 		val request = Request.Builder()
 				.url(city.url)
+				.header("Accept-Language", languageTag)
 				.build()
 
 		http.newCall(request).enqueue(object : Callback
@@ -120,6 +129,7 @@ object WebRetriever
 
 		val request = Request.Builder()
 				.url(multitap.url)
+				.header("Accept-Language", languageTag)
 				.build()
 
 		http.newCall(request).enqueue(object : Callback
@@ -208,6 +218,7 @@ object WebRetriever
 
 		val request = Request.Builder()
 				.url(multitap.url)
+				.header("Accept-Language", languageTag)
 				.build()
 
 		http.newCall(request).enqueue(object : Callback

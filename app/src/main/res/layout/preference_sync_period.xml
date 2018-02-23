@@ -27,7 +27,7 @@
             android:fadingEdge="horizontal"
             android:paddingLeft="8dp"
             android:singleLine="true"
-            android:text="Sync frequency"
+            android:text="@string/settings_sync_period"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold"/>

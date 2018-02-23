@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Ontap Unofficial</string>
-    <string name="app_name_short">Ontap</string>
+    <string name="app_name" translatable="false">Ontap Unofficial</string>
+    <string name="app_name_short" translatable="false">Ontap</string>
     <string name="memory_key" translatable="false">com.kosert.ontap.ONTAP_MEMORY</string>
     <string name="preference_key" translatable="false">com.kosert.ontap.ONTAP_PREFS</string>
     <string name="favorites_key" translatable="false">com.kosert.ontap.ONTAP_FAVS</string>
@@ -11,7 +11,6 @@
     <string name="favs_empty">You have no favorite multitaps yet!</string>
 
     <string name="choose_city">Choose city</string>
-    <string name="city_not_chosen">Choose city first!</string>
 
     <string name="menu_edit">Edit</string>
     <string name="menu_save">Save</string>
@@ -60,20 +59,20 @@
     <string name="settings_sound">Sound</string>
     <string name="settings_vibrate">Vibrate</string>
     <string name="settings_led">Blink LED</string>
-    <string name="settings_sync_period">Sync every</string>
+    <string name="settings_sync_period">Sync frequency</string>
     <string-array name="settings_sync_times">
-        <item>5 minutes</item>
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>60 minutes</item>
+        <item>Every 5 minutes</item>
+        <item>Every 15 minutes</item>
+        <item>Every 30 minutes</item>
+        <item>Every 1 hour</item>
     </string-array>
 
     <string name="about_title">About</string>
-    <string name="github_url">github.com/Kosert/OntapUnofficial</string>
+    <string name="github_url" translatable="false">github.com/Kosert/OntapUnofficial</string>
     <string name="version">Version %1$s</string>
 
     <string name="notification_service">Notification Service.</string>
-    <string name="notification_channel_id">BEER_NOTIFICATION_CHANNEL_ID</string>
+    <string name="notification_channel_id" translatable="false">BEER_NOTIFICATION_CHANNEL_ID</string>
     <string name="notification_channel_name">New Beers</string>
     <string name="notification_channel_description">Notifications about new beers in selected multitaps</string>
 
