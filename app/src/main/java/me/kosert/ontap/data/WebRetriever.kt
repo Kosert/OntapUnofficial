@@ -231,8 +231,6 @@ object WebRetriever
 					it.toBeerState()
 				}
 
-				Logger.list(list)
-
 				mainHandler.post{
 					callback.onSuccess(list)
 				}
