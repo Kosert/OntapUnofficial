@@ -14,15 +14,21 @@ import me.kosert.ontap.util.Logger
  */
 class NotificationService : JobService()
 {
-	override fun onStartJob(params: JobParameters?): Boolean
+	var counter : Int = 0
+
+	override fun onStartJob(params: JobParameters): Boolean
 	{
 		Logger.d("JOB STARTED")
+
+		counter = StaticProvider.NotificationMemory.getNotificationList().size
 
 		StaticProvider.NotificationMemory.getNotificationList().forEach {
 
 			WebRetriever.downloadMultitapBeerStates(it, object : BeerStatesCallback
 			{
-				override fun onFailure() {}
+				override fun onFailure() {
+					canFinishJob(params)
+				}
 				override fun onSuccess(list: List<BeerState>)
 				{
 					val newBeers = mutableListOf<BeerState>()
@@ -41,7 +47,7 @@ class NotificationService : JobService()
 
 					if (newBeers.size > 0)
 					{
-						Logger.d("NEW BEERS!!! CREATING NOTIFICATION " + it.name)
+						Logger.d(it.name + " - NEW BEERS, CREATING NOTIFICATION")
 						val unread = StaticProvider.NotificationMemory.getNotReadCount(it)
 
 						if (unread > 0)
@@ -61,8 +67,9 @@ class NotificationService : JobService()
 					}
 					else
 					{
-						Logger.d("NO NEW BEERS")
+						Logger.d(it.name + " - NO NEW BEERS")
 					}
+					canFinishJob(params)
 				}
 			})
 
@@ -70,6 +77,13 @@ class NotificationService : JobService()
 
 		BackgroundUtil.scheduleJob(this@NotificationService)
 		return true
+	}
+
+	private fun canFinishJob(params: JobParameters)
+	{
+		counter--
+		if (counter == 0)
+			jobFinished(params, false)
 	}
 
 	override fun onStopJob(params: JobParameters?): Boolean
