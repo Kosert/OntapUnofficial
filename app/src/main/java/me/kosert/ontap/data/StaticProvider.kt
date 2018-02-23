@@ -174,6 +174,17 @@ object StaticProvider
 			saveFavorites()
 		}
 
+		fun updateFavorite(multitap: Multitap)
+		{
+			val toUpdate = favoritesList.firstOrNull {
+				x -> x.url == multitap.url
+			}
+			toUpdate?.let {
+				it.details = multitap.details
+				saveFavorites()
+			}
+		}
+
 		fun saveFavorites()
 		{
 			if (isFavoritesNotInitialized()) return

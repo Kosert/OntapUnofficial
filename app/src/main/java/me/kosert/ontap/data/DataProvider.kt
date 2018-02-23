@@ -108,6 +108,7 @@ object DataProvider : IDataProvider
 			override fun onSuccess()
 			{
 				StaticProvider.Memory.saveMultitapDetails(multitap)
+				StaticProvider.Favorites.updateFavorite(multitap)
 				multitap.detailsLoading = false
 				callback.onSuccess()
 			}
@@ -162,6 +163,7 @@ object DataProvider : IDataProvider
 			override fun onSuccess()
 			{
 				StaticProvider.Memory.saveMultitapDetails(multitap)
+				StaticProvider.Favorites.updateFavorite(multitap)
 				addToMap(multitap.url, multitap.beers)
 				multitap.detailsLoading = false
 				callback.onSuccess()
