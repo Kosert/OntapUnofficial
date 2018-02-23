@@ -11,7 +11,7 @@ Gives you an online peek on what polish multitaps have to offer.
 - [x] New beer notifications
 - [ ] Show multitaps on map
 - [ ] Check beer statistics and ratings on Ratebeer and Untappd
-- [ ] Available in Polish and English
+- [x] Available in Polish and English
 
 ## Screenshots
 <img src="../master/Animated_1.gif" width="360" height="640" title="Editing Favorites"/> <img src="../master/Screenshot_1.png" width="360" height="640" title="Cities"/>
