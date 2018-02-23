@@ -74,6 +74,15 @@
                 android:id="@+id/settings_notifications_led"
                 layout="@layout/preference_led"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@android:color/white"/>
+
+            <include
+                android:id="@+id/settings_notifications_period"
+                layout="@layout/preference_sync_period"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

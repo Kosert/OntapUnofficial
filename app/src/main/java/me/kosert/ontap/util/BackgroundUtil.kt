@@ -5,6 +5,7 @@ import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.Context
 import me.kosert.ontap.background.NotificationService
+import me.kosert.ontap.data.StaticProvider
 
 
 /**
@@ -16,12 +17,26 @@ class BackgroundUtil
 	{
 		private const val JOB_ID = 2137
 
+		fun checkJob(context: Context)
+		{
+			val jobScheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+			val list = jobScheduler.allPendingJobs
+			if (list.isEmpty() && StaticProvider.Prefs.getPrefBoolean(StaticProvider.Prefs.PrefType.NOTIFICATIONS_KEY))
+			{
+				Logger.d("JOB LIST EMPTY")
+				scheduleJob(context)
+			}
+		}
+
 		fun scheduleJob(context: Context)
 		{
 			val serviceComponent = ComponentName(context, NotificationService::class.java)
 			val builder = JobInfo.Builder(JOB_ID, serviceComponent)
-			builder.setMinimumLatency(5* 60 * 1000)
-			builder.setOverrideDeadline(10* 60 * 1000)
+
+			Logger.d("JOB SCHEDULED")
+			val sync = StaticProvider.Prefs.getPrefSyncPeriod()
+			builder.setMinimumLatency((sync.minTime * 60 * 1000).toLong())
+			builder.setOverrideDeadline((sync.maxTime * 60 * 1000).toLong())
 			builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
 			val jobScheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
 			jobScheduler.schedule(builder.build())
@@ -31,6 +46,7 @@ class BackgroundUtil
 		{
 			val jobScheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
 			jobScheduler.cancel(JOB_ID)
+			Logger.d("JOB DISABLED")
 		}
 	}
 }

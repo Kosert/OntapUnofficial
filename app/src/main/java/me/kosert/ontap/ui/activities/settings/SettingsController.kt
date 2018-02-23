@@ -6,6 +6,7 @@ import android.widget.Toast
 import me.kosert.ontap.R
 import me.kosert.ontap.data.StaticProvider
 import me.kosert.ontap.model.Multitap
+import me.kosert.ontap.model.SyncPeriod
 import me.kosert.ontap.ui.activities.about.AboutActivity
 import me.kosert.ontap.ui.activities.settings.adapters.RecyclerNotificationAdapter
 import me.kosert.ontap.util.BackgroundUtil
@@ -47,8 +48,9 @@ class SettingsController
 		val sound = StaticProvider.Prefs.getPrefBoolean(StaticProvider.Prefs.PrefType.SOUND_KEY)
 		val vibrate = StaticProvider.Prefs.getPrefBoolean(StaticProvider.Prefs.PrefType.VIBRATE_KEY)
 		val led = StaticProvider.Prefs.getPrefBoolean(StaticProvider.Prefs.PrefType.LED_KEY)
+		val syncValue = StaticProvider.Prefs.getPrefSyncPeriod().enumValue
 
-		callbacks.setPrefs(notify, sound, vibrate, led)
+		callbacks.setPrefs(notify, sound, vibrate, led, syncValue)
 	}
 
 	fun enableNotifications(checked: Boolean)
@@ -74,6 +76,11 @@ class SettingsController
 	fun enableLed(checked: Boolean)
 	{
 		StaticProvider.Prefs.setPrefBoolean(StaticProvider.Prefs.PrefType.LED_KEY, checked)
+	}
+
+	fun setSyncPeriod(value: Int)
+	{
+		StaticProvider.Prefs.setPrefSyncPeriod(SyncPeriod.fromInt(value) ?: SyncPeriod.SYNC_30)
 	}
 
 	fun onClearMemory()

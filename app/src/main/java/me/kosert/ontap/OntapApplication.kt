@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.squareup.picasso.Picasso
 import me.kosert.ontap.data.StaticProvider
+import me.kosert.ontap.util.BackgroundUtil
 
 
 /**
@@ -35,5 +36,7 @@ class OntapApplication : Application()
 		StaticProvider.Prefs.setDefaultPreferences(false)
 		StaticProvider.Favorites.loadFavorites()
 		StaticProvider.NotificationMemory.loadNotifications()
+
+		BackgroundUtil.checkJob(this)
 	}
 }

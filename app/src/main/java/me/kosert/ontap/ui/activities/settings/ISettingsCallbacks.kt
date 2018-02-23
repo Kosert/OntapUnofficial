@@ -7,7 +7,7 @@ import me.kosert.ontap.ui.activities.settings.adapters.RecyclerNotificationAdapt
  */
 interface ISettingsCallbacks
 {
-	fun setPrefs(notifis: Boolean, sound: Boolean, vibrate: Boolean, led: Boolean)
+	fun setPrefs(notifis: Boolean, sound: Boolean, vibrate: Boolean, led: Boolean, syncPosition: Int)
 	fun setRecyclerCallback(onClickCallback: RecyclerNotificationAdapter.ItemClickCallback)
 	fun notifyRecycler()
 }

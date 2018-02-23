@@ -6,10 +6,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.PicassoUtil
-import me.kosert.ontap.model.BeerState
-import me.kosert.ontap.model.City
-import me.kosert.ontap.model.Multitap
-import me.kosert.ontap.model.MultitapDetails
+import me.kosert.ontap.model.*
 import me.kosert.ontap.util.Logger
 
 /**
@@ -69,6 +66,7 @@ object StaticProvider
 			SOUND_KEY("ENABLE_SOUND"),
 			VIBRATE_KEY("ENABLE_VIBRATE"),
 			LED_KEY("ENABLE_LED"),
+			SYNC_TIME_KEY("SYNC_TIME"),
 		}
 
 		fun setDefaultPreferences(force: Boolean)
@@ -83,6 +81,7 @@ object StaticProvider
 				editor.putBoolean(PrefType.SOUND_KEY.prefKey, true)
 				editor.putBoolean(PrefType.VIBRATE_KEY.prefKey, true)
 				editor.putBoolean(PrefType.LED_KEY.prefKey, true)
+				editor.putInt(PrefType.SYNC_TIME_KEY.prefKey, 2)
 				editor.apply()
 
 				return
@@ -96,6 +95,8 @@ object StaticProvider
 				editor.putBoolean(PrefType.VIBRATE_KEY.prefKey, true)
 			if (!prefs.contains(PrefType.LED_KEY.prefKey))
 				editor.putBoolean(PrefType.LED_KEY.prefKey, true)
+			if (!prefs.contains(PrefType.SYNC_TIME_KEY.prefKey))
+				editor.putInt(PrefType.SYNC_TIME_KEY.prefKey, 2)
 
 			editor.apply()
 		}
@@ -112,6 +113,21 @@ object StaticProvider
 			if (isPrefsNotInitialized()) return
 
 			prefs.edit().putBoolean(prefType.prefKey, value).apply()
+		}
+
+		fun getPrefSyncPeriod() : SyncPeriod
+		{
+			if (isPrefsNotInitialized()) return SyncPeriod.SYNC_30
+
+			val syncInt = prefs.getInt(PrefType.SYNC_TIME_KEY.prefKey, -1)
+			return SyncPeriod.fromInt(syncInt) ?: SyncPeriod.SYNC_30
+		}
+
+		fun setPrefSyncPeriod(value: SyncPeriod)
+		{
+			if (isPrefsNotInitialized()) return
+
+			prefs.edit().putInt(PrefType.SYNC_TIME_KEY.prefKey, value.enumValue).apply()
 		}
 	}
 
