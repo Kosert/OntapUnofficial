@@ -63,7 +63,7 @@ object WebRetriever
 					DataProvider.cities.add(city)
 					elem = elem.nextElementSibling()
 
-					if (elem == null || !elem.`is`("button"))
+					if (elem == null || !elem.`is`("a"))
 					{
 						next = false
 					}
@@ -186,7 +186,10 @@ object WebRetriever
 					faMessenger.first().parent().attr("href")
 				else ""
 
-		val beerElemets = doc.getElementsByClass("row")[1].children().dropLast(1)
+		val beerElemets = doc.getElementsByClass("row")[1].children().dropLast(1).filter {
+			it.tagName() == "div"
+		}
+
 		val beerCount = beerElemets.size
 
 		multitap.details = MultitapDetails(adr, website, phone, messenger, beerCount, coords)
@@ -236,7 +239,9 @@ object WebRetriever
 				val body = response.body()!!.string()
 
 				val doc = Jsoup.parse(body)
-				val beerElemets = doc.getElementsByClass("row")[1].children().dropLast(1)
+				val beerElemets = doc.getElementsByClass("row")[1].children().dropLast(1).filter {
+					it.tagName() == "div"
+				}
 
 				val list = beerElemets.map {
 					it.toBeerState()

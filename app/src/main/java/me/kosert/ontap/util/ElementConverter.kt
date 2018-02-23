@@ -13,9 +13,9 @@ import org.jsoup.nodes.Element
 
 fun Element.toCity() : City
 {
-	val url = this.attr("onclick").split("'", "'")[1]
+	val url = this.attr("href")
 	val	nr = this.select(".badge").text().toInt()
-	val name = this.select(".btn").first().childNode(0).outerHtml().trim()
+	val name = this.childNode(0).outerHtml()
 	return City(name, url, nr)
 }
 
@@ -55,9 +55,11 @@ fun Element.toBeer(): BeerItem
 	val beerStyle = cmlShadow.eachText().last().stripHtml()
 
 	val prices = this.getElementsByClass("col-xs-5").text()
-	val stats2 = this.getElementsByClass("col-xs-7").select("kbd").eachText()
+	val ibu = this.getElementsByClass("col-xs-7").select("kbd").eachText().find {
+		it.contains("IBU")
+	}
 
-	val allStatistics = stats.plus(stats2)
+	val allStatistics = ibu?.let { stats.plus(ibu) } ?: stats
 
 	val style = select(".panel-footer").attr("style")
 	val color = style.substring(style.lastIndexOf(" ")+1)
