@@ -78,11 +78,13 @@
     <string name="notification_channel_description">Notifications about new beers in selected multitaps</string>
 
     <plurals name="notification_title">
-        <item quantity="one">%1$d new beer in %2$s!</item>
+        <item quantity="one">New beer in %2$s!</item>
         <item quantity="other">%1$d new beers in %2$s!</item>
     </plurals>
 
     <string name="notification_text_one">%1$s - %2$s</string>
-    <string name="notification_text_more">%1$s - %2$s and %3$d others</string>
+    <plurals name="notification_text_more">
+        <item quantity="other">%1$s - %2$s and %3$d more</item>
+    </plurals>
 
 </resources>

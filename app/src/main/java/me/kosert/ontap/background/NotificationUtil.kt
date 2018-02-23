@@ -6,10 +6,12 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.media.RingtoneManager
 import android.os.Build
 import android.support.v4.app.NotificationCompat
+import android.support.v4.content.ContextCompat
 import me.kosert.ontap.R
 import me.kosert.ontap.data.StaticProvider
 import me.kosert.ontap.model.BeerState
@@ -55,10 +57,12 @@ class NotificationUtil
 			val text = if (newBeersCount == 1)
 				context.getString(R.string.notification_text_one, first.name, first.brewery)
 			else
-				context.getString(R.string.notification_text_more, first.name, first.brewery, newBeersCount - 1)
+				context.resources.getQuantityString(R.plurals.notification_text_more, newBeersCount - 1, first.name, first.brewery, newBeersCount - 1)
 
 			val builder = NotificationCompat.Builder(context, channelId)
-					.setSmallIcon(R.drawable.ic_launcher_foreground)
+					.setSmallIcon(R.drawable.ic_launcher_white)
+					.setLargeIcon(BitmapFactory.decodeResource(context.resources, R.mipmap.ic_launcher))
+					.setColor(ContextCompat.getColor(context, R.color.colorPrimary))
 					.setContentTitle(title)
 					.setTicker(title)
 					.setContentText(text)
