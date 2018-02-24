@@ -271,13 +271,19 @@ object StaticProvider
 
 		fun syncNotificationsWithFavorites()
 		{
+			val toRemoveList = mutableListOf<Multitap>()
 			notificationList.forEach {
 
 				val isInFavorites = Favorites.favoritesList.any {
 					x -> x.url == it.url
 				}
 				if (!isInFavorites)
-					removeNotification(it)
+					toRemoveList.add(it)
+			}
+			notificationList.removeAll {
+				toRemoveList.any {
+					x -> x.url == it.url
+				}
 			}
 		}
 
