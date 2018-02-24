@@ -3,6 +3,7 @@ package me.kosert.ontap.ui.activities.multitap
 import android.content.Context
 import android.widget.Toast
 import me.kosert.ontap.R
+import me.kosert.ontap.background.NotificationUtil
 import me.kosert.ontap.data.DataProvider
 import me.kosert.ontap.data.IDataProvider
 import me.kosert.ontap.data.StaticProvider
@@ -43,7 +44,7 @@ class MultitapController
 		callbacks.setTitle(multitap.name)
 
 		callbacks.isRefreshing = true
-		StaticProvider.NotificationMemory.removeNotReadFlag(multitap)
+		NotificationUtil.hideNotification(context, multitap)
 
 		getBeerList(multitap, false)
 	}

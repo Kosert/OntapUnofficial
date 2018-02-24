@@ -121,5 +121,14 @@ class NotificationUtil
 			val requestId = StaticProvider.Favorites.getPosition(multitap)
 			notificationManager.notify(requestId, notification)
 		}
+
+		fun hideNotification(context: Context, multitap: Multitap)
+		{
+			val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+			StaticProvider.NotificationMemory.removeNotReadFlag(multitap)
+			val requestId = StaticProvider.Favorites.getPosition(multitap)
+			notificationManager.cancel(requestId)
+		}
 	}
 }
