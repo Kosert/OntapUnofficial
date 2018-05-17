@@ -15,7 +15,7 @@ fun Element.toCity() : City
 {
 	val url = this.attr("href")
 	val	nr = this.select(".badge").text().toInt()
-	val name = this.childNode(0).outerHtml()
+	val name = this.childNode(0).outerHtml().trim()
 	return City(name, url, nr)
 }
 
