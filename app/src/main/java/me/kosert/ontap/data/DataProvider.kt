@@ -8,6 +8,7 @@ import me.kosert.ontap.model.Multitap
 import me.kosert.ontap.util.Logger
 
 /**
+ * Singleton implementation of [IDataProvider].
  * Created by Kosert on 2018-02-10.
  */
 object DataProvider : IDataProvider

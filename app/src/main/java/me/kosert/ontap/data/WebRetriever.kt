@@ -13,23 +13,24 @@ import java.io.IOException
 
 
 /**
+ * Singleton implementation of [IWebRetriever].
  * Created by Kosert on 2018-02-10.
  */
-object WebRetriever
+object WebRetriever : IWebRetriever
 {
 	private val logger = Logger("WebRetriever")
 	private val mainHandler = Handler()
 
-	const val mainPageUrl = "http://ontap.pl/"
+	override val mainPageUrl = "http://ontap.pl/"
 
 	private var languageTag = "*"
 
-	fun init(languageTag : String)
+	override fun init(languageTag : String)
 	{
 		this.languageTag = languageTag
 	}
 
-	fun downloadCityList(callback: NetworkCallback)
+	override fun downloadCityList(callback: NetworkCallback)
 	{
 		val http = OkHttpClient()
 
@@ -76,7 +77,7 @@ object WebRetriever
 		})
 	}
 
-	fun downloadCityMultitaps(city: City, callback: NetworkCallback)
+	override fun downloadCityMultitaps(city: City, callback: NetworkCallback)
 	{
 		val http = OkHttpClient()
 
@@ -123,7 +124,7 @@ object WebRetriever
 		})
 	}
 
-	fun downloadMultitapDetails(multitap: Multitap, callback: NetworkCallback, parseBeerList: Boolean)
+	override fun downloadMultitapDetails(multitap: Multitap, callback: NetworkCallback, parseBeerList: Boolean)
 	{
 		val http = OkHttpClient()
 
@@ -215,7 +216,7 @@ object WebRetriever
 		}
 	}
 
-	fun downloadMultitapBeerStates(multitap: Multitap, callback: BeerStatesCallback)
+	override fun downloadMultitapBeerStates(multitap: Multitap, callback: BeerStatesCallback)
 	{
 		val http = OkHttpClient()
 

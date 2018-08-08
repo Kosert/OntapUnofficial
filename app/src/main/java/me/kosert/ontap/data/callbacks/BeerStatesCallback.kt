@@ -8,6 +8,15 @@ import me.kosert.ontap.model.BeerState
 
 interface BeerStatesCallback
 {
+	/**
+	 * Called when requested data has been downloaded
+	 * @param list
+	 * List containing downloaded [BeerState] objects
+	 */
 	fun onSuccess(list: List<BeerState>)
+
+	/**
+	 * Called when there was an error when loading requested data
+	 */
 	fun onFailure()
 }

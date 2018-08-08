@@ -4,11 +4,19 @@ import android.util.Log
 import me.kosert.ontap.data.StaticProvider
 
 /**
+ * Class used to write messages to Logcat.
  * Created by Kosert on 2018-02-10.
+ * @constructor
+ * Class used to write messages to Logcat.
+ * Created by Kosert on 2018-02-10.
+ * @param logTag
+ * Tag that will be used for [Log] method calls by this instance
  */
-
 class Logger(logTag : String)
 {
+	/**
+	 * Static object for writing debug log messages
+	 */
 	companion object
 	{
 		private const val universalTag = "OntapUnofficial"
