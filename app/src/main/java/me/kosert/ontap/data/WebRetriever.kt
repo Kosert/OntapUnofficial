@@ -187,7 +187,7 @@ object WebRetriever : IWebRetriever
 					faMessenger.first().parent().attr("href")
 				else ""
 
-		val beerElemets = doc.getElementsByClass("row")[1].children().dropLast(1).filter {
+		val beerElemets = doc.getElementsByClass("row")[2].children().dropLast(1).filter {
 			it.tagName() == "div"
 		}
 
